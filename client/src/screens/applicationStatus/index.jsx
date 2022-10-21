@@ -19,6 +19,8 @@ export default function CustomerApplicationStatus(props) {
 
   const [acceptCheck, setAcceptCheck] = useState(false)
 
+  console.log(props.userData?.status)
+
   const submitHandler = async (e) => {
     e.preventDefault();
     axios
