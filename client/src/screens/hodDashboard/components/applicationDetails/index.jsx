@@ -82,7 +82,7 @@ export default function HodApplicationDetails({ applicantData }) {
         token: localStorage.getItem("adminToken"),
         newStatus : "rejected"
       })
-      .then((res) => alert(res.data?.message));
+      .then((res) => rejectSendSms());
   };
 
   const sendOtp = async () => {
@@ -92,6 +92,18 @@ export default function HodApplicationDetails({ applicantData }) {
         message: `An ack is sent to your appl dashboard against the appl no. ${applicantData.application_no}.Please login to the system, give your response.`
       })
       .then((res) => {
+      }); 
+      
+  };
+
+  const rejectSendSms = async () => {
+    axios
+      .post("/sms", {
+        phone:applicantData.mobile_no,
+        message: `Your appl. no.: ${applicantData.application_no} for TSUISL Bulk Gen. has been rejected. Please track your appl. for details.`
+      })
+      .then((res) => {
+        alert("customer rejected");
       }); 
       
   };

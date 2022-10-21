@@ -67,7 +67,7 @@ export default function AccountsApplicationDetails({ applicantData }) {
         token: localStorage.getItem("adminToken"),
         newStatus : "rejected"
       })
-      .then((res) => alert(res.data?.message));
+      .then((res) => rejectSendSms());
   };
 
   const changeStatusHandler = async (e) => {
@@ -88,6 +88,17 @@ export default function AccountsApplicationDetails({ applicantData }) {
       })
       .then((res) => {
         alert("customer created");
+      }); 
+      
+  };
+  const rejectSendSms = async () => {
+    axios
+      .post("/sms", {
+        phone:applicantData.mobile_no,
+        message: `Your appl. no.: ${applicantData.application_no} for TSUISL Bulk Gen. has been rejected. Please track your appl. for details.`
+      })
+      .then((res) => {
+        alert("customer rejected");
       }); 
       
   };
@@ -331,7 +342,7 @@ export default function AccountsApplicationDetails({ applicantData }) {
 
             <div>
               <Box sx={styles.detailsRow}>
-                <Typography sx={styles.field}>Area</Typography>
+                <Typography sx={styles.field}>Depot</Typography>
                 <Typography sx={styles.fieldData}>{applicantData.area}</Typography>
               </Box>
 
@@ -347,6 +358,7 @@ export default function AccountsApplicationDetails({ applicantData }) {
             <UsrSign />
           </Box>
         </Paper> */}
+        <br/>
         <Stack direction="row" spacing={4}>
           <Button
             color="success"
@@ -354,16 +366,16 @@ export default function AccountsApplicationDetails({ applicantData }) {
             sx={styles.submitBtn}
             onClick={submitHandler}
           >
-            Create User
+            Approve
           </Button>
-          <Button
+          {/* <Button
             color="error"
             variant="contained"
             sx={styles.submitBtn}
             onClick={rejectHandler}
           >
             Reject Application
-          </Button>
+          </Button> */}
         </Stack>
         <IconButton
           onClick={() => {
@@ -371,7 +383,6 @@ export default function AccountsApplicationDetails({ applicantData }) {
           }}
           sx={styles.topScrollBtn}
           color="primary"
-          aria-label="upload picture"
           component="label"
         >
           <KeyboardArrowUpIcon />

@@ -50,4 +50,9 @@ export const styles = {
   table: {
     width: "100%",
   },
+  logoutBtn:{
+    position:"absolute",
+    right:"30px",
+    top:"10px"
+},
 };

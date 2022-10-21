@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -13,6 +14,8 @@ import ApplicationTable from "./components/ApplicationTable";
 // import AllData from "./TableData/allData";
 
 export default function DepoManagerDashboard(props) {
+
+  let navigate = useNavigate()
 
   const mediaQuery = window.matchMedia("(max-width: 650px)");
 
@@ -56,6 +59,14 @@ export default function DepoManagerDashboard(props) {
 
   return (
     <div>
+      <Button
+      sx={styles.logoutBtn}
+        onClick={() => {
+          localStorage.setItem("adminToken", "");
+          navigate("/admin");
+        }}
+        variant="text"
+      >Logout</Button>
       <Container maxWidth="xl" sx={styles.container}>
         <img
           style={mediaQuery.matches ? styles.imgLogoMobile : styles.imgLogo}

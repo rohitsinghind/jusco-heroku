@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -12,6 +13,9 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import ApplicationTable from "./components/ApplicationTable";
 // import AllData from "./TableData/allData";
 export default function HodDashboard(props) {
+
+  let navigate = useNavigate()
+
   const mediaQuery = window.matchMedia("(max-width: 650px)");
 
   const [applicants, setApplicants] = useState([])
@@ -41,7 +45,7 @@ export default function HodDashboard(props) {
 
   const fetchApplicants = async (e) => {
     axios
-      .post("https://jusco-bulk-gen-server.herokuapp.com/getApplications", {
+      .post("/getApplications", {
         token:localStorage.getItem("adminToken")
       })
       .then((res) => setApplicants(res.data?.data));
@@ -54,6 +58,14 @@ export default function HodDashboard(props) {
 
   return (
     <div>
+      <Button
+      sx={styles.logoutBtn}
+        onClick={() => {
+          localStorage.setItem("adminToken", "");
+          navigate("/admin");
+        }}
+        variant="text"
+      >Logout</Button>
       <Container maxWidth="xl" sx={styles.container}>
         <img
           style={mediaQuery.matches ? styles.imgLogoMobile : styles.imgLogo}

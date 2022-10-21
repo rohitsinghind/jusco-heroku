@@ -149,7 +149,7 @@ export const styles = {
         },
         dashboardText:{
             fontFamily: "'Open Sans', sans-serif",
-            fontSize:"25px",
+            fontSize:"18px",
             color:"#5D5D5D",
             mb:"20px",
             mt:"35px",
@@ -196,7 +196,7 @@ export const styles = {
         },
         field:{
             fontFamily: "'Open Sans', sans-serif",
-            fontSize:"20px",
+            fontSize:"12px",
             color:"#1D1D1D",
             fontWeight: 600,
             width:"200px",
@@ -208,7 +208,7 @@ export const styles = {
         },
         fieldData:{
             fontFamily: "'Open Sans', sans-serif",
-            fontSize:"20px",
+            fontSize:"12px",
             color:"#2D2D2D",
             width:"200px",
             display:"flex",

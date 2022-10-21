@@ -382,12 +382,12 @@ export default function ApplicationDetails({ applicantData }) {
             <br />
             <Box sx={styles.inputrow}>
               <FormControl sx={styles.inputField} fullWidth>
-                <InputLabel id="Area">Area</InputLabel>
+                <InputLabel id="Area">Depot</InputLabel>
                 <Select
                   labelId="area"
                   id="area"
                   value={area}
-                  label="Area"
+                  label="Depot"
                   onChange={(e) => {
                     setArea(e.target.value);
                   }}

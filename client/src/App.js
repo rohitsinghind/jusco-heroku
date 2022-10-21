@@ -2,12 +2,13 @@ import React,{useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./screens/login";
+import CustomersLogin from "./screens/customersLogin";
 import ApplicationForm from "./screens/applicationForm";
+import AdminLogin from "./screens/customersLogin";
 import CustomerDashboard from "./screens/customerDashboard";
-import AdminLogin from "./screens/adminLogin";
 import DepoManagerDashboard from "./screens/depoManagerDashboard";
 import ApplicationDetails from "./screens/depoManagerDashboard/components/applicationDetails";
-import CustomerApplicationStatus from "./screens/customerDashboard/applicationStatus";
+import CustomerApplicationStatus from "./screens/applicationStatus";
 import HodDashboard from "./screens/hodDashboard";
 import DoorToDoor from "./screens/doorToDoor";
 import DoorToDoorVerification from "./screens/doorToDoorVerification";
@@ -16,6 +17,9 @@ import TrackYourApplication from "./screens/trackYourApplication";
 import HodApplicationDetails from "./screens/hodDashboard/components/applicationDetails";
 import AccountManagerDashboard from "./screens/accountManagerDashboard";
 import AccountsApplicationDetails from "./screens/accountManagerDashboard/components/applicationDetails";
+import D2dApplicationDetails from "./screens/doorToDoorVerification/components/applicationDetails";
+import CustomerReviewLetterPdf from "./screens/customerReviewLetterPdf";
+import ApplicationFormPdf from "./screens/customerStatusPdf";
 
 function App() {
   const [userData, setUserData] = useState("")
@@ -25,7 +29,8 @@ function App() {
       <div style={{ background: "#f0f2f7" }}>
         <Router>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<CustomersLogin />} />
+            <Route path="/admin" element={<Login />} />
             <Route path="/application" element={<ApplicationForm />} />
             <Route path="/customerDashboard" element={<CustomerDashboard userData={userData}/>} />
             <Route path="/adminLogin" element={<AdminLogin />} />
@@ -64,7 +69,11 @@ function App() {
             />
             <Route
               path="/doorToDoorVerification"
-              element={<DoorToDoorVerification/>}
+              element={<DoorToDoorVerification setApplicantData={setApplicantData}/>}
+            />
+            <Route
+              path="/d2dApplicationDetails"
+              element={<D2dApplicationDetails applicantData={applicantData}/>}
             />
             <Route
               path="/sendSms"
@@ -74,10 +83,17 @@ function App() {
               path="/trackYourApplication"
               element={<TrackYourApplication setUserData={setUserData}/>}
             />
+            <Route
+              path="/applicationFormPdf"
+              element={<ApplicationFormPdf userData={userData}/>}
+            />
+            <Route
+              path="/customerReviewLetterPdf"
+              element={<CustomerReviewLetterPdf userData={userData}/>}
+            />
           </Routes>
         </Router>
       </div>
-      {/* <SignatureComponent/> */}
     </>
   );
 }

@@ -1,45 +1,59 @@
-import React from "react";
-import { styles } from "./styles";
-import { useNavigate } from "react-router-dom";
-import { Container } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import React,{useState, useEffect} from "react";
+import axios from "axios";
 import Button from "@mui/material/Button";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import Menu from "@mui/material/Menu";
+import { Container } from "@mui/material";
+import { styles } from "./styles";
+import MenuItem from "@mui/material/MenuItem";
+import { Box } from "@mui/system";
+import Typography from "@mui/material/Typography";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import ApplicationTable from "./components/ApplicationTable";
+// import AllData from "./TableData/allData";
+export default function DoorToDoorVerification(props) {
+  const mediaQuery = window.matchMedia("(max-width: 650px)");
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#1b84e7",
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
+  const [applicants, setApplicants] = useState([])
+  
+  const [Table, setTable] = useState(
+    <ApplicationTable
+      data={applicants}
+      actionLink={props.link || "/applicationDetails"}
+    />
+  );
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
+  // console.log(applicants)
 
-const data = []
+  const [tableName, setTableName] = useState("Applications");
+ 
 
-export default function DoorToDoorVerification() {
+  function handleClickPop(e) {
+    setTableName(e.target.innerText);
+    setTable(
+      <ApplicationTable
+        // data={AllData[e.target.id]}
+        actionLink={props.link || "/applicationDetails"}
+      />
+    );
+    console.log(e.target.id);
+  }
 
-    const mediaQuery = window.matchMedia("(max-width: 650px)");
+  const fetchApplicants = async (e) => {
+    axios
+      .post("/getApplications", {
+        token:localStorage.getItem("adminToken")
+      })
+      .then((res) => setApplicants(res.data?.data));
+  };
 
-    let navigate = useNavigate();
-    return (
-      <>
+  useEffect(() => {
+    fetchApplicants();
+  }, [])
+  
+
+  return (
+    <div>
       <Container maxWidth="xl" sx={styles.container}>
         <img
           style={mediaQuery.matches ? styles.imgLogoMobile : styles.imgLogo}
@@ -47,58 +61,141 @@ export default function DoorToDoorVerification() {
           alt=""
           srcset=""
         />
+
         <Typography sx={styles.head}>Bulk Generation System</Typography>
-        <Typography sx={styles.dashboardText}>Door-to-Door Authority  Dashboard
+        <Typography sx={styles.dashboardText}>
+          D2D Dashboard
         </Typography>
-        
-        <Paper variant="outlined" sx={styles.fieldContainer}>
-          <Box sx={styles.row}>
-            <div>
-              <Typography sx={styles.dashboardText}>Personal Info</Typography>
-              <Box sx={styles.detailsRow}>
-                <Typography sx={styles.field}>Name</Typography>
-                <Typography sx={styles.fieldData}>Mr. Rohit Kumar</Typography>
-              </Box>
+        <Box sx={styles.tabItemContainer}>
+          <PopupState
+            sx={styles.tabItem}
+            variant="popover"
+            popupId="demo-popup-menu"
+          >
+            {(popupState) => (
+              <React.Fragment>
+                <Button
+                  sx={styles.tabItem}
+                  variant="contained"
+                  {...bindTrigger(popupState)}
+                >
+                  {tableName}
+                  <KeyboardArrowDownIcon />
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem
+                    id="application"
+                    onClick={(e) => {
+                      popupState.close();
+                      handleClickPop(e);
+                    }}
+                  >
+                    Applications
+                  </MenuItem>
+                  <MenuItem
+                    id="under_l1"
+                    onClick={(e) => {
+                      popupState.close();
+                      handleClickPop(e);
+                    }}
+                  >
+                    Customer ID created
+                  </MenuItem>
+                  <MenuItem
+                    id="under_l2"
+                    onClick={(e) => {
+                      popupState.close();
+                      handleClickPop(e);
+                    }}
+                  >
+                    QR code – Not Pasted
+                  </MenuItem>
+                  
+                </Menu>
+              </React.Fragment>
+            )}
+          </PopupState>
 
-              {mediaQuery.matches ? <Box sx={styles.detailsRow}>
-                <Typography sx={styles.field}>Application Id</Typography>
-                <Typography sx={styles.fieldData}>1232342</Typography>
-              </Box>:""
-              }
+          <PopupState
+            sx={styles.tabItem}
+            variant="popover"
+            popupId="demo-popup-menu"
+          >
+            {(popupState) => (
+              <React.Fragment>
+                <Button
+                  sx={styles.tabItem}
+                  variant="outlined"
+                  {...bindTrigger(popupState)}
+                >
+                  Menu
+                  <KeyboardArrowDownIcon />
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                  <MenuItem onClick={popupState.close}>My account</MenuItem>
+                  <MenuItem onClick={popupState.close}>Logout</MenuItem>
+                </Menu>
+              </React.Fragment>
+            )}
+          </PopupState>
 
-              <Box sx={styles.detailsRow}>
-                <Typography sx={styles.field}>Mobile Number</Typography>
-                <Typography sx={styles.fieldData}>9876543210</Typography>
-              </Box>
+          <PopupState
+            sx={styles.tabItem}
+            variant="popover"
+            popupId="demo-popup-menu"
+          >
+            {(popupState) => (
+              <React.Fragment>
+                <Button
+                  sx={styles.tabItem}
+                  variant="outlined"
+                  {...bindTrigger(popupState)}
+                >
+                  Menu
+                  <KeyboardArrowDownIcon />
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                  <MenuItem onClick={popupState.close}>My account</MenuItem>
+                  <MenuItem onClick={popupState.close}>Logout</MenuItem>
+                </Menu>
+              </React.Fragment>
+            )}
+          </PopupState>
 
-              <Box sx={styles.detailsRow}>
-                <Typography sx={styles.field}>Area</Typography>
-                <Typography sx={styles.fieldData}>
-                Baridih
-                </Typography>
-              </Box>
-
-              <Box sx={styles.detailsRow}>
-                <Typography sx={styles.field}>Application Date</Typography>
-                <Typography sx={styles.fieldData}>12/01/2023	
-</Typography>
-              </Box>
-            </div>
-            {mediaQuery.matches ? "":
-            <div>
-              <Typography sx={styles.dashboardText}>.</Typography>
-              <Box sx={styles.detailsRow}>
-                <Typography sx={styles.field}>Application Id</Typography>
-                <Typography sx={styles.fieldData}>1232342</Typography>
-              </Box>
-            </div>
-          }
+          <PopupState
+            sx={styles.tabItem}
+            variant="popover"
+            popupId="demo-popup-menu"
+          >
+            {(popupState) => (
+              <React.Fragment>
+                <Button
+                  sx={styles.tabItem}
+                  variant="outlined"
+                  {...bindTrigger(popupState)}
+                >
+                  Menu
+                  <KeyboardArrowDownIcon />
+                </Button>
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                  <MenuItem onClick={popupState.close}>My account</MenuItem>
+                  <MenuItem onClick={popupState.close}>Logout</MenuItem>
+                </Menu>
+              </React.Fragment>
+            )}
+          </PopupState>
+        </Box>
+        <Box sx={styles.table}>
+        <ApplicationTable
+              data={applicants}
+              setApplicantData={props.setApplicantData}
+              actionLink={props.link || "/d2dApplicationDetails"}
+            />
           </Box>
-        </Paper>
-
-        <Button variant="contained">Capture Image</Button>
-        </Container>
-      </>
-    );
-  }
-  
+      </Container>
+    </div>
+  );
+}
