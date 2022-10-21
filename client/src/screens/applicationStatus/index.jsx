@@ -216,6 +216,15 @@ export default function CustomerApplicationStatus(props) {
             </div>
           </Box>
         </Paper>
+        {
+          (props.userData?.status==="depo" || props.userData?.status==="HOD")?
+          <>
+          <br />
+          <Button variant="contained" onClick={() => navigate("/applicationFormPdf")}>
+            Download application form
+          </Button>
+          <br /></>:""
+        }
 {
   (props.userData?.status==="accepted" || props.userData?.status==="customerAccepted" || props.userData?.status==="customerRejected")?
     <>
@@ -249,11 +258,11 @@ export default function CustomerApplicationStatus(props) {
         </Paper>
         <br />
         <Button variant="contained" onClick={() => navigate("/applicationFormPdf")}>
-          Download
+          Download application form
         </Button>
         <br />
 {
- (props.userData?.status!=="accepted")?
+ (props.userData?.status==="accepted")?
  <>
         <Stack direction="row" spacing={2}>
           <FormGroup>
