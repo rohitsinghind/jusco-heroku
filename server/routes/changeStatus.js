@@ -10,7 +10,12 @@ async function changeStatus(applicantId, newStatus, token) {
 
   if (!usr) {
     return { flag: false, message: "Bad Request" };
-  } else if (usr.role == "hod" || usr.role == "depot_manager") {
+  } else if (
+    usr.role == "hod" ||
+    usr.role == "depot_manager" ||
+    usr.role == "customer"
+  ) {
+    //new change,customer can also change status
     const application = await db.customer.update({
       where: {
         id: applicantId,

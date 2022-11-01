@@ -25,6 +25,7 @@ async function getAllApplication({ token }) {
         status: "HOD",
       },
     });
+
     console.log(applicants);
     return {
       flag: true,
@@ -37,6 +38,20 @@ async function getAllApplication({ token }) {
         status: "customerAccepted",
       },
     });
+    console.log(applicants);
+    return {
+      flag: true,
+      message: "Success",
+      data: applicants,
+    };
+  } else if (usr.role == "d2d") {
+    const applicants = await db.customer.findMany({
+      //d2d get all applicatios
+      where: {
+        status: "customerCreated",
+      },
+    });
+
     console.log(applicants);
     return {
       flag: true,

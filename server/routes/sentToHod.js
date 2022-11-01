@@ -2,15 +2,9 @@ const { PrismaClient } = require("@prisma/client");
 const db = new PrismaClient();
 
 async function sendToHod(data) {
-  let {  freq ,
-    applicantId,
-    token,
-    category,
-    mobileAck, 
-    area ,
-    rate } = data
+  let { freq, applicantId, token, category, mobileAck, area, rate } = data;
 
-    mobileAck = toString(mobileAck)
+  mobileAck = toString(mobileAck);
   console.log(applicantId);
   const usr = await db.user.findUnique({
     where: {
@@ -24,15 +18,14 @@ async function sendToHod(data) {
     const application = await db.customer.update({
       where: {
         id: applicantId,
-
       },
       data: {
         status: "HOD",
-        category:category,
-        mobileAck:mobileAck,
-        area:area,
-        rate:rate,
-        freq:freq
+        category: category,
+        mobileAck: mobileAck,
+        area: area,
+        rate: rate,
+        freq: freq,
       },
     });
 
