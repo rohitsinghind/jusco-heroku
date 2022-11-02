@@ -12,6 +12,7 @@ const { changeStatus } = require("./routes/changeStatus");
 const { getAllApplication } = require("./routes/getAllapplications");
 const { sendToHod } = require("./routes/sentToHod");
 const { sms } = require("./routes/sendMessage");
+const { updateCustomerData } = require("./routes/updateCustomerData");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "server/config.env" });
@@ -92,9 +93,16 @@ app.post("/sendToHod", async (req, res) => {
   res.send(response);
 });
 
+//to send sms
 app.post("/sms", async (req, res) => {
   const response = await sms(req.body);
   res.send(response);
+});
+
+//universal route to change Customer application data at any given point
+//it takes applicantId + {an object containing key (as the database name : updated value)}
+app.post("updateCustomerData", async (req, res) => {
+  const response = await updateCustomerData(req.body);
 });
 
 app.listen(process.env.PORT || 3001, () => {

@@ -1,7 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
 const db = new PrismaClient();
 
-async function changeStatus(applicantId, newStatus, token) {
+async function updateCustomerData(data) {
+  let { applicantId, updatedData } = data; //updatedData is an object
+
+  console.log(applicantId);
   const usr = await db.user.findUnique({
     where: {
       token: token,
@@ -11,25 +14,21 @@ async function changeStatus(applicantId, newStatus, token) {
   if (!usr) {
     return { flag: false, message: "Bad Request" };
   } else if (
-    usr.role == "hod" ||
     usr.role == "depot_manager" ||
-    usr.role == "customer" ||
-    usr.role == "d2d"
+    usr.role == "hod" ||
+    usr.role == "d2d" ||
+    usr.role == "account_manager"
   ) {
-    //new change,customer can also change status
     const application = await db.customer.update({
       where: {
         id: applicantId,
       },
-      data: {
-        status: newStatus,
-        application_status: newStatus,
-      },
+      data: updatedData, //key value pair should match database fields name
     });
 
     return {
       flag: true,
-      message: `Success, status changed to ${newStatus}`,
+      message: `data Updated`,
     };
   } else {
     return {
@@ -39,4 +38,4 @@ async function changeStatus(applicantId, newStatus, token) {
   }
 }
 
-module.exports = { changeStatus };
+module.exports = { updateCustomerData };
