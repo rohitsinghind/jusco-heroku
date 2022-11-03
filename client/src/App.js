@@ -63,10 +63,10 @@ function App() {
               path="/hodDasAppDetails"
               element={<CustomerApplicationStatus rev={true} />}
             />
-             <Route
+             {/* <Route
               path="/doorToDoor"
               element={<DoorToDoor/>}
-            />
+            /> */}
             <Route
               path="/doorToDoorVerification"
               element={<DoorToDoorVerification setApplicantData={setApplicantData}/>}

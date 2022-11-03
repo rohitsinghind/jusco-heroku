@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import Iframe from "react-iframe";
+import SignaturePad from 'react-signature-canvas'
 import { styles } from "./styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -48,6 +50,14 @@ export default function ApplicationForm() {
   const [areaBa, setAreaBa] = useState("");
   const [areaPa, setAreaPa] = useState("");
 
+  const [docFile1, setDocFile1] = useState("")
+  const [docFile2, setDocFile2] = useState("")
+  const [docFile3, setDocFile3] = useState("")
+
+  const [language, setLanguage] = useState("English")
+
+  const [signature, setSignature] = useState("")
+
   const [creds, setCreds] = useState({
     Fname: "",
     Lname: "",
@@ -69,6 +79,8 @@ export default function ApplicationForm() {
     countryBa: "India",
     qty: "",
     remarks: "",
+    Longitude: "",
+    Latitude: "",
   });
 
   const [val, setVal] = useState({
@@ -112,6 +124,18 @@ export default function ApplicationForm() {
     setAreaPa(areaBa);
   };
 
+  // const handleDoc1Change = (e) => {
+  //   const file = e.target.files[0];
+  //   const Reader = new FileReader();
+  //   Reader.readAsDataURL(file);
+  //   Reader.onload = () => {
+  //     if (Reader.readyState === 2) {
+  //       setDocFile1(Reader.result);
+  //     }
+  //   };
+  // };
+
+
   const submitHandler = async (e) => {
     // e.preventDefault();
     axios
@@ -151,6 +175,12 @@ export default function ApplicationForm() {
         localityPa: val.localityPa,
         qty:creds.qty,
         remarks:creds.remarks,
+        Longitude: creds.Longitude,
+        Latitude: creds.Latitude,
+        category:(doctype1==="GSTIN" || doctype2==="GSTIN" || doctype2==="GSTIN")?"B2B":"B2C",
+        docFile1:docFile1,
+        docFile2:docFile2,
+        docFile3:docFile3,
       })
       .then((res) => {
         // console.log(res.data)
@@ -163,7 +193,26 @@ export default function ApplicationForm() {
 
   // console.log(creds.mobile.substring(creds.mobile.length-10))
 
-  const mediaQuery = window.matchMedia("(max-width: 550px)");
+  let sigPad = useRef({})
+    let data="";
+
+    function clear(){
+        sigPad.current.clear()
+    }
+
+    function show(){
+        sigPad.current.fromDataURL(data)
+    }
+
+    function save(){
+        data = sigPad.current.toDataURL()
+        setSignature(data)
+        alert("Signature Saved")
+        clear()
+        show()
+    }
+
+  const mediaQuery = window.matchMedia("(max-width: 650px)");
 
   const generateOtp =() => {
    setOtp(Math.floor(100000 + Math.random() * 900000))
@@ -387,7 +436,13 @@ export default function ApplicationForm() {
               <Typography sx={styles.inputBtnText}>
                 Upload your Document
               </Typography>
-              <input style={styles.inputBtn} type={"file"}></input>
+              <input style={styles.inputBtn} type={"file"} accept="image/*" onChange={(e) => {const file = e.target.files[0];
+                    const Reader = new FileReader();
+                    Reader.readAsDataURL(file);
+                    Reader.onload = () => {
+                      if (Reader.readyState === 2) {
+                        setDocFile1(Reader.result);
+                      }}}}/>
             </Box>
           </Box>
 
@@ -430,7 +485,13 @@ export default function ApplicationForm() {
               <Typography sx={styles.inputBtnText}>
                 Upload your Document
               </Typography>
-              <input style={styles.inputBtn} type={"file"}></input>
+              <input style={styles.inputBtn} type={"file"} accept="image/*" onChange={(e) => {const file = e.target.files[0];
+                    const Reader = new FileReader();
+                    Reader.readAsDataURL(file);
+                    Reader.onload = () => {
+                      if (Reader.readyState === 2) {
+                        setDocFile2(Reader.result);
+                      }}}}/>
             </Box>
           </Box>
 
@@ -473,7 +534,13 @@ export default function ApplicationForm() {
               <Typography sx={styles.inputBtnText}>
                 Upload your Document
               </Typography>
-              <input style={styles.inputBtn} type={"file"}></input>
+              <input style={styles.inputBtn} type={"file"} accept="image/*" onChange={(e) => {const file = e.target.files[0];
+                    const Reader = new FileReader();
+                    Reader.readAsDataURL(file);
+                    Reader.onload = () => {
+                      if (Reader.readyState === 2) {
+                        setDocFile3(Reader.result);
+                      }}}}/>
             </Box>
           </Box>
         </Paper>
@@ -804,6 +871,76 @@ export default function ApplicationForm() {
               sx={styles.inputField}
             />
           </Box>
+          <Box sx={styles.row}>
+          <FormControl sx={{m:2,ml:4}}>
+              <FormLabel id="language" sx={styles.head2}>
+                Medium of communication
+              </FormLabel>
+              <RadioGroup
+                row
+                sx={styles.radioGroup}
+                aria-labelledby="Medium of communication"
+                defaultValue="English"
+                name="language"
+                value={language}
+                onChange={(e) => {
+                  setLanguage(e.target.value);
+                }}
+              >
+                <FormControlLabel value="English" control={<Radio />} label="English" />
+                <FormControlLabel value="Hindi" control={<Radio />} label="Hindi" />
+              </RadioGroup>
+            </FormControl>
+            <Box sx={styles.inputField}></Box>
+          </Box>
+        </Paper>
+
+        <Paper variant="outlined" sx={styles.fieldContainer}>
+        <Typography sx={styles.signupText}>Select Location</Typography>
+        <Iframe
+          url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117711.91484915413!2d86.17577080000002!3d22.7840284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f5e31989f0e2b5%3A0xeeec8e81ce9b344!2sJamshedpur%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1659242270720!5m2!1sen!2sin"
+          width="100%"
+          height="450px"
+          id="map"
+          className="myClassname"
+          display="initial"
+          position="relative"
+          allow="fullscreen"
+        />
+        <Box sx={styles.inputrow}>
+          <TextField
+            InputProps={{
+              readOnly: true,
+            }}
+            id="Longitude"
+            type="text"
+            label="Longitude"
+            value="22.804565"
+            onChange={handleChange}
+            sx={styles.inputField}
+          />
+          <TextField
+            InputProps={{
+              readOnly: true,
+            }}
+            id="Latitude"
+            type="text"
+            label="Latitude"
+            value="86.202873"
+            onChange={handleChange}
+            sx={styles.inputField}
+          />
+        </Box>
+        </Paper>
+
+        <Paper variant="outlined" sx={styles.fieldContainer}>
+        <SignaturePad
+            ref={sigPad}
+        />
+        <div className="controls">
+        <button onClick={clear} className="clear">Clear</button>
+        <button onClick={save} className="save">Save</button>
+        </div>
         </Paper>
 
         <div

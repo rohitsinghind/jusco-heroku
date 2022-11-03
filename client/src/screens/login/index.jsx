@@ -38,7 +38,7 @@ export default function Login() {
       localStorage.setItem("adminToken", res.data?.token);
       console.log(res.data);
 
-      {res.data?.flag ? navigate(res.data?.data?.role == "hod"?"/hodDashboard":res.data?.data?.role == "depot_manager"?"/depoManagerDashboard":"/AccountManagerDashboard") : alert(res.data?.message)}
+      {res.data?.flag ? navigate(res.data?.data?.role == "hod"?"/hodDashboard":res.data?.data?.role == "depot_manager"?"/depoManagerDashboard":res.data?.data?.role == "d2d"?"/doorToDoorVerification":"/AccountManagerDashboard") : alert(res.data?.message)}
     });
   };
 

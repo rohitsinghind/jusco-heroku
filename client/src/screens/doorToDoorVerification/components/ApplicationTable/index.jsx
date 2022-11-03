@@ -45,7 +45,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ApplicationTable({ data, actionLink, setApplicantData}) {
   let navigate = useNavigate();
-  // console.log(data)
+  console.log(data)
   // console.log(actionLink);
   return (
     <>
@@ -56,27 +56,24 @@ export default function ApplicationTable({ data, actionLink, setApplicantData}) 
           <TableHead>
             <TableRow>
               <StyledTableCell>Sl.No</StyledTableCell>
-              <StyledTableCell align="right">Customer Id</StyledTableCell>
-              <StyledTableCell align="right">Pick up address</StyledTableCell>
-              <StyledTableCell align="right">Latitude</StyledTableCell>
-              <StyledTableCell align="right">Longitude</StyledTableCell>
-              <StyledTableCell align="right">Action</StyledTableCell>
+              <StyledTableCell align="center">Customer Id</StyledTableCell>
+              <StyledTableCell align="center">Pick up address</StyledTableCell>
+              <StyledTableCell align="center">Latitude</StyledTableCell>
+              <StyledTableCell align="center">Longitude</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {data.map((row) => (
+            {data.map((row,idx) => (
               <StyledTableRow key={row.application_no}>
-                <StyledTableCell align="right"></StyledTableCell>
+                <StyledTableCell align="center">{idx+1}</StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  {row?.application_no}
+                  {row?.customer_id}
                 </StyledTableCell>
-                <StyledTableCell align="right"> {row?.salutation+". "+row?.first_name+" "+row?.last_name}</StyledTableCell>
-                <StyledTableCell align="right">{row?.mobile_no}</StyledTableCell>
-                <StyledTableCell align="right">{row?.billing_area}</StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.expiration}
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center"> {row?.pickup_estb_name+" "+row?.pickup_estb_name+" "+row?.pickup_street+" "+row?.pickup_locality+" "+row?.pickup_city+" "+row?.pickup_region+" "+row?.pickup_postal_code}</StyledTableCell>
+                <StyledTableCell align="center"> {row?.latitude}</StyledTableCell>
+                <StyledTableCell align="center">{row?.longitude}</StyledTableCell>
+                <StyledTableCell align="center">
                   <Button
                     onClick={() => {
                       setApplicantData(row)
@@ -88,7 +85,7 @@ export default function ApplicationTable({ data, actionLink, setApplicantData}) 
                   </Button>
                 </StyledTableCell>
               </StyledTableRow>
-            ))} */}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

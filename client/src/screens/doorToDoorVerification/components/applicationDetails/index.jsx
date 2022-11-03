@@ -28,72 +28,24 @@ export default function D2dApplicationDetails({ applicantData }) {
 
   const mediaQuery = window.matchMedia("(max-width: 650px)");
 
-  const [freq, setFreq] = useState("");
-  const [category, setCategory] = useState("")
-  const [mobileAck, setMobileAck] = useState(false)
-  const [area, setArea] = useState("")
-  const [rate, setRate] = useState("")
 
-
-  const [creds, setCreds] = useState({
-    Longitude: "1",
-    Latitude: "",
-    area: "",
-    rate: "",
-  });
-
-  const handleChange = (key) => {
-    key.preventDefault();
-    setCreds({ ...creds, [key.target.id]: key.target.value });
-  };
+const [houseId, setHouseId] = useState("")
+const [image, setImage] = useState("")
 
   const submitHandler = async (e) => {
     e.preventDefault();
     axios
-      .post("/changeStatus", {
+      .post("/updateCustomerData", {
         applicantId: applicantData.id,
-        token: localStorage.getItem("adminToken"),
-        newStatus: "accepted"
+          houseId:houseId,
+          image:image
       })
       .then((res) => {
         alert(res.data?.message)
-        sendOtp()
       });
 
   };
 
-  const reviewHandler = async (e) => {
-    e.preventDefault();
-    axios
-      .post("/changeStatus", {
-        applicantId: applicantData.id,
-        token: localStorage.getItem("adminToken"),
-        newStatus: "depo"
-      })
-      .then((res) => alert(res.data?.message));
-  };
-
-  const rejectHandler = async (e) => {
-    e.preventDefault();
-    axios
-      .post("/changeStatus", {
-        applicantId: applicantData.id,
-        token: localStorage.getItem("adminToken"),
-        newStatus : "rejected"
-      })
-      .then((res) => alert(res.data?.message));
-  };
-
-  const sendOtp = async () => {
-    axios
-      .post("/sms", {
-        phone:applicantData.mobile_no,
-        message: `An ack is sent to your appl dashboard against the appl no. ${applicantData.application_no}.Please login to the system, give your response.`
-      })
-      .then((res) => {
-      }); 
-      
-  };
 
   const divForScroll = useRef(null);
 
@@ -301,7 +253,6 @@ export default function D2dApplicationDetails({ applicantData }) {
             type="text"
             label="Longitude"
             value="22.804565"
-            onChange={handleChange}
             sx={styles.inputField}
           />
           <TextField
@@ -312,7 +263,6 @@ export default function D2dApplicationDetails({ applicantData }) {
             type="text"
             label="Latitude"
             value="86.202873"
-            onChange={handleChange}
             sx={styles.inputField}
           />
         </Box>
@@ -345,11 +295,18 @@ export default function D2dApplicationDetails({ applicantData }) {
             </div>
           </Box>
         </Paper>
-        {/* <Paper variant="outlined" sx={styles.fieldContainer}>
+        <Paper variant="outlined" sx={styles.fieldContainer}>
           <Box sx={styles.row}>
-            <UsrSign />
+            <TextField
+              id="houseId"
+              type="text"
+              label="House Id"
+              value={houseId}
+              onChange={(e)=>{setHouseId(e.target.value)}}
+              sx={styles.inputField}
+            />
           </Box>
-        </Paper> */}
+        </Paper>
         <Stack direction="row" spacing={4}>
           <Button
             color="success"
@@ -357,22 +314,7 @@ export default function D2dApplicationDetails({ applicantData }) {
             sx={styles.submitBtn}
             onClick={submitHandler}
           >
-            Approve
-          </Button>
-          <Button
-            variant="contained"
-            sx={styles.submitBtn}
-            onClick={reviewHandler}
-          >
-            Send for review
-          </Button>
-          <Button
-            color="error"
-            variant="contained"
-            sx={styles.submitBtn}
-            onClick={rejectHandler}
-          >
-            Reject
+            submit
           </Button>
         </Stack>
         <IconButton
