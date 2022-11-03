@@ -1,6 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { styles } from "./styles";
+
+import Camera from "../camera";
+
 import Iframe from "react-iframe";
 import axios from "axios";
 import Stack from '@mui/material/Stack';
@@ -20,6 +23,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Checkbox, FormLabel } from "@mui/material";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 export default function D2dApplicationDetails({ applicantData }) {
 
@@ -37,10 +41,12 @@ const [image, setImage] = useState("")
     axios
       .post("/updateCustomerData", {
         applicantId: applicantData.id,
-          houseId:houseId,
-          image:image
+        token:localStorage.getItem("adminToken")
+          // house_id:houseId,
+          // image:image
       })
       .then((res) => {
+        console.log(res.data)
         alert(res.data?.message)
       });
 
@@ -48,6 +54,8 @@ const [image, setImage] = useState("")
 
 
   const divForScroll = useRef(null);
+
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -295,7 +303,7 @@ const [image, setImage] = useState("")
             </div>
           </Box>
         </Paper>
-        <Paper variant="outlined" sx={styles.fieldContainer}>
+        {/* <Paper variant="outlined" sx={styles.fieldContainer}> */}
           <Box sx={styles.row}>
             <TextField
               id="houseId"
@@ -306,7 +314,12 @@ const [image, setImage] = useState("")
               sx={styles.inputField}
             />
           </Box>
-        </Paper>
+        {/* </Paper> */}
+
+        <Box sx={styles.row2}>
+           
+           <Button variant="contained" endIcon={<CameraAltIcon />} onClick={()=>{setOpen(true)}}>Capture</Button>
+          </Box>
         <Stack direction="row" spacing={4}>
           <Button
             color="success"
@@ -328,6 +341,7 @@ const [image, setImage] = useState("")
         >
           <KeyboardArrowUpIcon />
         </IconButton>
+        <Camera setOpen={setOpen} open={open} setImage={setImage}/>
       </Container>
     </>
   );

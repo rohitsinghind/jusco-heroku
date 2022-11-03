@@ -101,7 +101,7 @@ app.post("/sms", async (req, res) => {
 
 //universal route to change Customer application data at any given point
 //it takes applicantId + {an object containing key (as the database name : updated value)}
-app.post("updateCustomerData", async (req, res) => {
+app.post("/updateCustomerData", async (req, res) => {
   const response = await updateCustomerData(req.body);
 });
 

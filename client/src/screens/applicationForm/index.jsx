@@ -175,15 +175,17 @@ export default function ApplicationForm() {
         localityPa: val.localityPa,
         qty:creds.qty,
         remarks:creds.remarks,
-        Longitude: creds.Longitude,
-        Latitude: creds.Latitude,
+        longitude: creds.Longitude,
+        latitude: creds.Latitude,
         category:(doctype1==="GSTIN" || doctype2==="GSTIN" || doctype2==="GSTIN")?"B2B":"B2C",
         docFile1:docFile1,
         docFile2:docFile2,
         docFile3:docFile3,
+        medium_lang:language,
+        signature_acknowledgement:signature
       })
       .then((res) => {
-        // console.log(res.data)
+        console.log(res.data)
         // alert(res.data?.message)
         navigate("/trackYourApplication")
       });

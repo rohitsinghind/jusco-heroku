@@ -53,6 +53,13 @@ export const styles = {
             justifyContent:"center"
           },
     },
+    row2:{
+        display:"flex",
+        flexDirection:"column",
+        justifyContent:"start",
+        alignItems:"start",
+        my:"20px"
+    },
     detailsRow:{
         display:"flex",
         justifyContent:"start",
