@@ -113,6 +113,10 @@ async function createApplication(usrData, applicationNo) {
         mobileAck: "Undefiend",
         area: "Undefined",
         rate: "undefined",
+        medium_lang: "undefined",
+        latitude: "undef",
+        longitude: "undef",
+        house_id: "undef",
       },
     });
     const ab = await sms({
