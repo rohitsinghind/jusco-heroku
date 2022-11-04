@@ -46,10 +46,17 @@ CREATE TABLE `customer` (
     `mobileAck` VARCHAR(191) NOT NULL,
     `area` VARCHAR(191) NOT NULL,
     `rate` VARCHAR(191) NOT NULL,
+    `medium_lang` VARCHAR(191) NOT NULL,
+    `latitude` VARCHAR(191) NOT NULL,
+    `longitude` VARCHAR(191) NOT NULL,
+    `house_id` VARCHAR(191) NOT NULL,
+    `qr_code_proof_img` VARCHAR(191) NOT NULL,
+    `signature_acknowlegement` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `customer_id_key`(`id`),
     UNIQUE INDEX `customer_application_no_key`(`application_no`),
     UNIQUE INDEX `customer_customer_id_key`(`customer_id`),
+    UNIQUE INDEX `customer_house_id_key`(`house_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

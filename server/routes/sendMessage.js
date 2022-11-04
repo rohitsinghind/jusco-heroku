@@ -12,6 +12,7 @@ async function sms({ phone, message }) {
 
     return { flag: true, message: "sent" };
   } catch (e) {
+    console.log(e);
     return { flag: false, message: `ERROR : ${e}` };
   }
 }

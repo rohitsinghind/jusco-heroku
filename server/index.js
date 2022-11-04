@@ -22,10 +22,14 @@ const app = express();
 const db = new PrismaClient();
 var applicationNo = 0;
 
-app.use(express.json());
 app.use(cors({ "access-control-allow-origin": "*" }));
-app.use(urlencoded({ encodeURI: true }));
 app.use(express.static(path.join(__dirname, "../client/build")));
+
+app.use(express.json({ limit: "10mb", extended: true }));
+app.use(
+  express.urlencoded({ limit: "10mb", extended: true, parameterLimit: 50000 })
+);
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
 });
@@ -35,6 +39,7 @@ app.post("/createApplication", async (req, res) => {
   applicationNo++;
   const response = await createApplication(req.body, applicationNo);
   console.log("/createApplication");
+  console.log(response);
   res.send(response);
 });
 

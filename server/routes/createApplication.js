@@ -59,6 +59,7 @@ async function createApplication(usrData, applicationNo) {
     qty,
     remarks,
   } = usrData;
+  console.log(docFile1);
   try {
     const appliNo = `ph/${applicationNo}-${Math.floor(
       Math.random() * 1000
@@ -114,9 +115,11 @@ async function createApplication(usrData, applicationNo) {
         area: "Undefined",
         rate: "undefined",
         medium_lang: "undefined",
-        latitude: "undef",
-        longitude: "undef",
-        house_id: "undef",
+        latitude: "none",
+        longitude: "none",
+        house_id: "none",
+        qr_code_proof_img: "none",
+        signature_acknowlegement: "none",
       },
     });
     const ab = await sms({

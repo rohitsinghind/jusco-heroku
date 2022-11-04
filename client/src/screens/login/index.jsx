@@ -17,9 +17,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
-export default function Login() {
+export default function () {
   const [creds, setCreds] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -37,8 +37,13 @@ export default function Login() {
     const login = await axios.post("/login", creds).then((res) => {
       localStorage.setItem("adminToken", res.data?.token);
       console.log(res.data);
-
-      {res.data?.flag ? navigate(res.data?.data?.role == "hod"?"/hodDashboard":res.data?.data?.role == "depot_manager"?"/depoManagerDashboard":res.data?.data?.role == "d2d"?"/doorToDoorVerification":"/AccountManagerDashboard") : alert(res.data?.message)}
+      const role = res.data.role;
+      if (role == "hod") navigate("/hodDashboard");
+      else if (role == "depot_manager") navigate("/depoManagerDashboard");
+      else if (role == "d2d") navigate("/doorToDoorVerification");
+      else if (role == "ac") navigate("/AccountManagerDashboard");
+      else if (role == "fw") navigate("/fieldWorkerDashboard"); //ye krna hai
+      else if (role == "billing_manager") navigate("/billingmanagerDashboard"); //ye krna hai
     });
   };
 
@@ -48,17 +53,16 @@ export default function Login() {
 
   return (
     <>
-     <Stack direction="row" sx={styles.adminBtn} spacing={2}>
-     <Button
-        onClick={() => {
-          navigate("/trackYourApplication");
-        }}
-        
-        variant="text"
-      >
-        Track Your Application
-      </Button>
-      {/* <Button
+      <Stack direction="row" sx={styles.adminBtn} spacing={2}>
+        <Button
+          onClick={() => {
+            navigate("/trackYourApplication");
+          }}
+          variant="text"
+        >
+          Track Your Application
+        </Button>
+        {/* <Button
         onClick={() => {
           navigate("/adminLogin");
         }}
