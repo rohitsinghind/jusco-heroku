@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const { sms } = require("./sendMessage");
+const cloudinary = require("cloudinary");
 
 const db = new PrismaClient();
 
@@ -58,9 +59,27 @@ async function createApplication(usrData, applicationNo) {
     localityPa,
     qty,
     remarks,
+    medium_lang,
+    latitude,
+    longitude,
+    signature_acknowlegement
   } = usrData;
   console.log(docFile1);
   try {
+
+    const myCloud1 = docFile1?await cloudinary.v2.uploader.upload(docFile1, {
+      folder: "documents",
+    }):""
+    const myCloud2 = docFile2?await cloudinary.v2.uploader.upload(docFile2, {
+      folder: "documents",
+    }):""
+    const myCloud3 = docFile3?await cloudinary.v2.uploader.upload(docFile3, {
+      folder: "documents",
+    }):""
+    const docUrl1 = myCloud1?.secure_url
+    const docUrl2 = myCloud2?.secure_url
+    const docUrl3 = myCloud3?.secure_url
+
     const appliNo = `ph/${applicationNo}-${Math.floor(
       Math.random() * 1000
     )}/${dateTime.getFullYear()}`;
@@ -80,13 +99,13 @@ async function createApplication(usrData, applicationNo) {
         designation: designation || "undefined",
         document_type_1: doctype1 || "undefined",
         document_no_1: doc1No || "undefined",
-        document_file_name_1: docFile1 || "undefined",
+        document_file_name_1: docUrl1 || "undefined",
         document_type_2: doctype2 || "undefined",
         document_no_2: doc2No || "undefined",
-        document_file_name_2: docFile2 || "undefined",
+        document_file_name_2: docUrl2 || "undefined",
         document_type_3: doctype3 || "undefined",
         document_no_3: doc3No || "undefined",
-        document_file_name_3: docFile3 || "undefined",
+        document_file_name_3: docUrl3 || "undefined",
         billing_estb_name: nameBa || "undefined",
         billing_street: streetHouseNoBa || "undefined",
         billing_zone: zoneBa || "undefined",
@@ -114,12 +133,12 @@ async function createApplication(usrData, applicationNo) {
         mobileAck: "Undefiend",
         area: "Undefined",
         rate: "undefined",
-        medium_lang: "undefined",
-        latitude: "none",
-        longitude: "none",
+        medium_lang: medium_lang||"undefined",
+        latitude: latitude||"none",
+        longitude: longitude||"none",
         house_id: "none",
         qr_code_proof_img: "none",
-        signature_acknowlegement: "none",
+        signature_acknowlegement: signature_acknowlegement||"none",
       },
     });
     const ab = await sms({

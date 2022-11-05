@@ -2,7 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
 const { urlencoded } = require("body-parser");
+const cloudinary = require("cloudinary");
 const path = require("path");
+
+cloudinary.config({
+  cloud_name: "dv4bjke87",
+  api_key: "343127678422988",
+  api_secret: "oy7inx7vMFzqYAFMjpYIz71U5RQ",
+});
 
 const { loginUser } = require("./routes/userLogin");
 const { createApplication } = require("./routes/createApplication");

@@ -32,12 +32,14 @@ export default function () {
     setShowPassword(!showPassword);
   };
 
+  let navigate = useNavigate();
+
   const loginHandler = async (e) => {
     e.preventDefault();
     const login = await axios.post("/login", creds).then((res) => {
       localStorage.setItem("adminToken", res.data?.token);
-      console.log(res.data);
-      const role = res.data.role;
+      const role = res.data.data.role;
+      console.log(role)
       if (role == "hod") navigate("/hodDashboard");
       else if (role == "depot_manager") navigate("/depoManagerDashboard");
       else if (role == "d2d") navigate("/doorToDoorVerification");
@@ -47,7 +49,7 @@ export default function () {
     });
   };
 
-  let navigate = useNavigate();
+  
 
   const mediaQuery = window.matchMedia("(max-width: 550px)");
 
