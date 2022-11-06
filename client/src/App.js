@@ -21,6 +21,7 @@ import D2dApplicationDetails from "./screens/doorToDoorVerification/components/a
 import CustomerReviewLetterPdf from "./screens/customerReviewLetterPdf";
 import ApplicationFormPdf from "./screens/customerStatusPdf";
 import FieldWorkerDashboard from "./screens/fieldWorkerDashboard";
+import InvoicePdf from "./screens/invoicePdf";
 
 function App() {
   const [userData, setUserData] = useState("");
@@ -107,6 +108,10 @@ function App() {
             <Route
               path="/fieldWorkerDashboard"
               element={<FieldWorkerDashboard />}
+            />
+            <Route
+              path="/invoicePdf"
+              element={<InvoicePdf />}
             />
           </Routes>
         </Router>
