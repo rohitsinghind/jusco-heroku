@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack";
 
 export default function BillingManagerDashBoard() {
   const creds = { id: "" };
+  const [allData, setAllData] = useState({});
 
   const mediaQuery = window.matchMedia("(max-width: 550px)");
   //OTP varification left
@@ -40,9 +41,14 @@ export default function BillingManagerDashBoard() {
             variant="contained"
             sx={styles.loginBtn}
             onClick={() => {
-              axios.post("/getApplications", {
-                application_no: creds.id,
-              });
+              axios.post(
+                "/getApplications",
+                {
+                  application_no: creds.id,
+                }.then((res) => {
+                  setAllData(res.data);
+                })
+              );
             }}
           >
             Get Data
@@ -50,7 +56,8 @@ export default function BillingManagerDashBoard() {
           <Divider sx={styles.divider} />
 
           <Box sx={styles.flex}>
-            <Typography sx={styles.signupText}>Message</Typography>
+            {/* <Typography sx={styles.signupText}>Message</Typography> */}
+            {allData}
           </Box>
         </Paper>
       </Container>
