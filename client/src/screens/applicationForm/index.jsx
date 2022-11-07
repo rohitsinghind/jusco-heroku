@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Iframe from "react-iframe";
-import SignaturePad from 'react-signature-canvas'
+import SignaturePad from "react-signature-canvas";
 import { styles } from "./styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -34,8 +34,7 @@ import { FormLabel } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
 export default function ApplicationForm() {
-
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const divForScroll = useRef(null);
 
@@ -50,13 +49,13 @@ export default function ApplicationForm() {
   const [areaBa, setAreaBa] = useState("");
   const [areaPa, setAreaPa] = useState("");
 
-  const [docFile1, setDocFile1] = useState("")
-  const [docFile2, setDocFile2] = useState("")
-  const [docFile3, setDocFile3] = useState("")
+  const [docFile1, setDocFile1] = useState("");
+  const [docFile2, setDocFile2] = useState("");
+  const [docFile3, setDocFile3] = useState("");
 
-  const [language, setLanguage] = useState("English")
+  const [language, setLanguage] = useState("English");
 
-  const [signature, setSignature] = useState("")
+  const [signature, setSignature] = useState("");
 
   const [creds, setCreds] = useState({
     Fname: "",
@@ -135,7 +134,6 @@ export default function ApplicationForm() {
   //   };
   // };
 
-
   const submitHandler = async (e) => {
     // e.preventDefault();
     axios
@@ -143,18 +141,18 @@ export default function ApplicationForm() {
         salutation: salutation,
         Fname: creds.Fname,
         Lname: creds.Lname,
-        mobile: creds.mobile.substring(creds.mobile.length-10),
+        mobile: creds.mobile.substring(creds.mobile.length - 10),
         email: creds.email,
         designation: creds.designation,
         doctype1,
         doc1No: creds.doc1No,
-        docFile1:"",
+        docFile1: "",
         doctype2,
         doc2No: creds.doc2No,
-        docFile2:"",
+        docFile2: "",
         doctype3,
         doc3No: creds.doc3No,
-        docFile3:"",
+        docFile3: "",
         nameBa: creds.nameBa,
         streetHouseNoBa: creds.streetHouseNoBa,
         zoneBa: creds.zoneBa,
@@ -173,21 +171,24 @@ export default function ApplicationForm() {
         zonePa: val.zonePa,
         areaPa,
         localityPa: val.localityPa,
-        qty:creds.qty,
-        remarks:creds.remarks,
+        qty: creds.qty,
+        remarks: creds.remarks,
         longitude: creds.Longitude,
         latitude: creds.Latitude,
-        category:(doctype1==="GSTIN" || doctype2==="GSTIN" || doctype2==="GSTIN")?"B2B":"B2C",
-        docFile1:docFile1,
-        docFile2:docFile2,
-        docFile3:docFile3,
-        medium_lang:language,
-        signature_acknowledgement:signature
+        category:
+          doctype1 === "GSTIN" || doctype2 === "GSTIN" || doctype2 === "GSTIN"
+            ? "B2B"
+            : "B2C",
+        docFile1: docFile1,
+        docFile2: docFile2,
+        docFile3: docFile3,
+        medium_lang: language,
+        signature_acknowledgement: signature,
       })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         // alert(res.data?.message)
-        navigate("/trackYourApplication")
+        navigate("/trackYourApplication");
       });
 
     // setOpen(true);
@@ -195,48 +196,49 @@ export default function ApplicationForm() {
 
   // console.log(creds.mobile.substring(creds.mobile.length-10))
 
-  let sigPad = useRef({})
-    let data="";
+  let sigPad = useRef({});
+  let data = "";
 
-    function clear(){
-        sigPad.current.clear()
-    }
+  function clear() {
+    sigPad.current.clear();
+  }
 
-    function show(){
-        sigPad.current.fromDataURL(data)
-    }
+  function show() {
+    sigPad.current.fromDataURL(data);
+  }
 
-    function save(){
-        data = sigPad.current.toDataURL()
-        setSignature(data)
-        alert("Signature Saved")
-        clear()
-        show()
-    }
+  function save() {
+    data = sigPad.current.toDataURL();
+
+    console.log(data);
+    setSignature(data); //yha error aa rha
+    console.log(signature); ///yha per ye save nhi ho rha
+    alert("Signature Saved");
+
+    show();
+  }
 
   const mediaQuery = window.matchMedia("(max-width: 650px)");
 
-  const generateOtp =() => {
-   setOtp(Math.floor(100000 + Math.random() * 900000))
+  const generateOtp = () => {
+    setOtp(Math.floor(100000 + Math.random() * 900000));
   };
 
   const sendOtp = async () => {
     axios
       .post("/sms", {
-        phone:creds.mobile.substring(creds.mobile.length-10),
-        message: `Your OTP for TSUISL Bulk Generation application is ${otp}`
+        phone: creds.mobile.substring(creds.mobile.length - 10),
+        message: `Your OTP for TSUISL Bulk Generation application is ${otp}`,
       })
       .then((res) => {
         alert("OTP " + res.data?.message);
-        setOpen(true)
-      }); 
-      
+        setOpen(true);
+      });
   };
 
   useEffect(() => {
-    generateOtp()
-  }, [])
-  
+    generateOtp();
+  }, []);
 
   return (
     <>
@@ -376,29 +378,29 @@ export default function ApplicationForm() {
               Privacy Policy goes here
             </Typography> */}
             <div
-          onClick={() => {
-            setPrivacyPolicyOpen(true);
-          }}
-          style={{ display: "flex", justifyContent: "start", width: "70%" }}
-        >
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  // checked={}
-                  // onChange={()=>
-                  // {if(btn==true){
-                  //     setBtn(false)
-                  //     }
-                  //   else{
-                  //     setBtn(true)
-                  //   }}}
+              onClick={() => {
+                setPrivacyPolicyOpen(true);
+              }}
+              style={{ display: "flex", justifyContent: "start", width: "70%" }}
+            >
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                    // checked={}
+                    // onChange={()=>
+                    // {if(btn==true){
+                    //     setBtn(false)
+                    //     }
+                    //   else{
+                    //     setBtn(true)
+                    //   }}}
+                    />
+                  }
+                  label="Privacy Policy"
                 />
-              }
-              label="Privacy Policy"
-            />
-          </FormGroup>
-        </div>
+              </FormGroup>
+            </div>
           </Box>
         </Paper>
 
@@ -438,13 +440,21 @@ export default function ApplicationForm() {
               <Typography sx={styles.inputBtnText}>
                 Upload your Document
               </Typography>
-              <input style={styles.inputBtn} type={"file"} accept="image/*" onChange={(e) => {const file = e.target.files[0];
-                    const Reader = new FileReader();
-                    Reader.readAsDataURL(file);
-                    Reader.onload = () => {
-                      if (Reader.readyState === 2) {
-                        setDocFile1(Reader.result);
-                      }}}}/>
+              <input
+                style={styles.inputBtn}
+                type={"file"}
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const Reader = new FileReader();
+                  Reader.readAsDataURL(file);
+                  Reader.onload = () => {
+                    if (Reader.readyState === 2) {
+                      setDocFile1(Reader.result);
+                    }
+                  };
+                }}
+              />
             </Box>
           </Box>
 
@@ -487,13 +497,21 @@ export default function ApplicationForm() {
               <Typography sx={styles.inputBtnText}>
                 Upload your Document
               </Typography>
-              <input style={styles.inputBtn} type={"file"} accept="image/*" onChange={(e) => {const file = e.target.files[0];
-                    const Reader = new FileReader();
-                    Reader.readAsDataURL(file);
-                    Reader.onload = () => {
-                      if (Reader.readyState === 2) {
-                        setDocFile2(Reader.result);
-                      }}}}/>
+              <input
+                style={styles.inputBtn}
+                type={"file"}
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const Reader = new FileReader();
+                  Reader.readAsDataURL(file);
+                  Reader.onload = () => {
+                    if (Reader.readyState === 2) {
+                      setDocFile2(Reader.result);
+                    }
+                  };
+                }}
+              />
             </Box>
           </Box>
 
@@ -536,13 +554,21 @@ export default function ApplicationForm() {
               <Typography sx={styles.inputBtnText}>
                 Upload your Document
               </Typography>
-              <input style={styles.inputBtn} type={"file"} accept="image/*" onChange={(e) => {const file = e.target.files[0];
-                    const Reader = new FileReader();
-                    Reader.readAsDataURL(file);
-                    Reader.onload = () => {
-                      if (Reader.readyState === 2) {
-                        setDocFile3(Reader.result);
-                      }}}}/>
+              <input
+                style={styles.inputBtn}
+                type={"file"}
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const Reader = new FileReader();
+                  Reader.readAsDataURL(file);
+                  Reader.onload = () => {
+                    if (Reader.readyState === 2) {
+                      setDocFile3(Reader.result);
+                    }
+                  };
+                }}
+              />
             </Box>
           </Box>
         </Paper>
@@ -874,7 +900,7 @@ export default function ApplicationForm() {
             />
           </Box>
           <Box sx={styles.row}>
-          <FormControl sx={{m:2,ml:4}}>
+            <FormControl sx={{ m: 2, ml: 4 }}>
               <FormLabel id="language" sx={styles.head2}>
                 Medium of communication
               </FormLabel>
@@ -889,8 +915,16 @@ export default function ApplicationForm() {
                   setLanguage(e.target.value);
                 }}
               >
-                <FormControlLabel value="English" control={<Radio />} label="English" />
-                <FormControlLabel value="Hindi" control={<Radio />} label="Hindi" />
+                <FormControlLabel
+                  value="English"
+                  control={<Radio />}
+                  label="English"
+                />
+                <FormControlLabel
+                  value="Hindi"
+                  control={<Radio />}
+                  label="Hindi"
+                />
               </RadioGroup>
             </FormControl>
             <Box sx={styles.inputField}></Box>
@@ -898,51 +932,53 @@ export default function ApplicationForm() {
         </Paper>
 
         <Paper variant="outlined" sx={styles.fieldContainer}>
-        <Typography sx={styles.signupText}>Select Location</Typography>
-        <Iframe
-          url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117711.91484915413!2d86.17577080000002!3d22.7840284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f5e31989f0e2b5%3A0xeeec8e81ce9b344!2sJamshedpur%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1659242270720!5m2!1sen!2sin"
-          width="100%"
-          height="450px"
-          id="map"
-          className="myClassname"
-          display="initial"
-          position="relative"
-          allow="fullscreen"
-        />
-        <Box sx={styles.inputrow}>
-          <TextField
-            InputProps={{
-              readOnly: true,
-            }}
-            id="Longitude"
-            type="text"
-            label="Longitude"
-            value="22.804565"
-            onChange={handleChange}
-            sx={styles.inputField}
+          <Typography sx={styles.signupText}>Select Location</Typography>
+          <Iframe
+            url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117711.91484915413!2d86.17577080000002!3d22.7840284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f5e31989f0e2b5%3A0xeeec8e81ce9b344!2sJamshedpur%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1659242270720!5m2!1sen!2sin"
+            width="100%"
+            height="450px"
+            id="map"
+            className="myClassname"
+            display="initial"
+            position="relative"
+            allow="fullscreen"
           />
-          <TextField
-            InputProps={{
-              readOnly: true,
-            }}
-            id="Latitude"
-            type="text"
-            label="Latitude"
-            value="86.202873"
-            onChange={handleChange}
-            sx={styles.inputField}
-          />
-        </Box>
+          <Box sx={styles.inputrow}>
+            <TextField
+              InputProps={{
+                readOnly: true,
+              }}
+              id="Longitude"
+              type="text"
+              label="Longitude"
+              value="22.804565"
+              onChange={handleChange}
+              sx={styles.inputField}
+            />
+            <TextField
+              InputProps={{
+                readOnly: true,
+              }}
+              id="Latitude"
+              type="text"
+              label="Latitude"
+              value="86.202873"
+              onChange={handleChange}
+              sx={styles.inputField}
+            />
+          </Box>
         </Paper>
 
         <Paper variant="outlined" sx={styles.fieldContainer}>
-        <SignaturePad
-            ref={sigPad}
-        />
-        <div className="controls">
-        <button onClick={clear} className="clear">Clear</button>
-        <button onClick={save} className="save">Save</button>
-        </div>
+          <SignaturePad ref={sigPad} />
+          <div className="controls">
+            <button onClick={clear} className="clear">
+              Clear
+            </button>
+            <button onClick={save} className="save">
+              Save
+            </button>
+          </div>
         </Paper>
 
         <div
@@ -973,7 +1009,11 @@ export default function ApplicationForm() {
           variant="contained"
           sx={styles.submitBtn}
           onClick={sendOtp}
-          disabled={!btn || (creds.cmobile !== creds.mobile) || (creds.cemail !== creds.email)}
+          disabled={
+            !btn ||
+            creds.cmobile !== creds.mobile ||
+            creds.cemail !== creds.email
+          }
         >
           Submit Application
         </Button>
@@ -993,7 +1033,7 @@ export default function ApplicationForm() {
       <OtpPopup
         otp={otp}
         submitHandler={submitHandler}
-        phone={creds.mobile.substring(creds.mobile.length-10)}
+        phone={creds.mobile.substring(creds.mobile.length - 10)}
         email={creds.email}
         open={open}
         setOpen={setOpen}
