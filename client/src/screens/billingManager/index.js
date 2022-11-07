@@ -11,8 +11,8 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 
 export default function BillingManagerDashBoard() {
-  const creds = { id: "" };
-  const [allData, setAllData] = useState({});
+  var creds = { id: "" };
+  const [allData, setAllData] = useState("");
 
   const mediaQuery = window.matchMedia("(max-width: 550px)");
   //OTP varification left

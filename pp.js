@@ -78,3 +78,19 @@ const b = {
 "application_no": "123934",
 "id": "test",
 "mod_by": "test"}
+
+{
+"username": "fw",
+"password": "test@123",
+"role": "fw",
+"application_no": "3934",
+"id": "test",
+"mod_by": "test"}
+
+{
+"username": "billing_manager",
+"password": "test@123",
+"role": "billing_manager",
+"application_no": "395334",
+"id": "test",
+"mod_by": "test"}

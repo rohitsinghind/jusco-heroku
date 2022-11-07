@@ -21,6 +21,7 @@ import D2dApplicationDetails from "./screens/doorToDoorVerification/components/a
 import CustomerReviewLetterPdf from "./screens/customerReviewLetterPdf";
 import ApplicationFormPdf from "./screens/customerStatusPdf";
 import FieldWorkerDashboard from "./screens/fieldWorkerDashboard";
+import BillingManagerDashBoard from "./screens/billingManager";
 import InvoicePdf from "./screens/invoicePdf";
 
 function App() {
@@ -108,6 +109,11 @@ function App() {
             <Route
               path="/fieldWorkerDashboard"
               element={<FieldWorkerDashboard />}
+            />
+
+            <Route
+              path="/billingmanagerDashboard"
+              element={<BillingManagerDashBoard />}
             />
             <Route
               path="/invoicePdf"
