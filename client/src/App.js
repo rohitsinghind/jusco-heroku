@@ -24,6 +24,7 @@ import FieldWorkerDashboard from "./screens/fieldWorkerDashboard";
 import BillingManagerDashBoard from "./screens/billingManager";
 import InvoicePdf from "./screens/invoicePdf";
 import InvoicePage from "./screens/seeinvoice";
+import CreateInvoice from "./screens/accountManagerDashboard/components/createInvoice";
 
 function App() {
   const [userData, setUserData] = useState("");
@@ -125,6 +126,9 @@ function App() {
               path="/invoice"
               element={<InvoicePage setInvoiceData={setInvoiceData} />}
             />
+            <Route 
+            path = "/createInvoice"
+            element = {<CreateInvoice/>}/>
           </Routes>
         </Router>
       </div>

@@ -7,13 +7,14 @@ const db = new PrismaClient();
 
 async function createInvoice(usrData) {
   const dateTime = new Date();
+  console.log("creating user invoice "+usrData.id);
 
   const { id } = usrData;
 
   try {
     const application = await db.customer.findUnique({
       where: {
-        id: id,
+        customer_id: id,
       },
     });
     let uniqId = `O${application.application_no}-${Math.floor(
@@ -53,7 +54,7 @@ async function createInvoice(usrData) {
       });
       const wab = await sms({
         phone: `${application.mobile_no}`,
-        message: `Please download your invoice from http://bulk.jusco.rudrayati.in/invoicePdf, your invoice_id is ${uniqId}`,
+        message: `Please download your invoice from https://bulkgen.herokuapp.com/invoicePdf, your invoice_id is ${uniqId}`,
       });
 
       return {

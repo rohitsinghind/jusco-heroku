@@ -68,6 +68,7 @@ export default function AccountManagerDashboard(props) {
         variant="text"
       >Logout</Button>
       <Container maxWidth="xl" sx={styles.container}>
+        <Button onClick={()=>{navigate("/createInvoice")}} color="primary">Create invoice</Button>
         <img
           style={mediaQuery.matches ? styles.imgLogoMobile : styles.imgLogo}
           src={require("../../assets/image/logo.png")}

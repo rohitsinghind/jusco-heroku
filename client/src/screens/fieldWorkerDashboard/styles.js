@@ -99,4 +99,9 @@ export const styles = {
     right: "30px",
     top: "10px",
   },
+  input:{
+    width:"90%",
+    padding:"1rem 2rem",
+
+  }
 };

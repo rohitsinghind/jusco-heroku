@@ -55,8 +55,8 @@ export default function AccountsApplicationDetails({ applicantData }) {
         mod_by: "account_manager",
       })
       .then((res) => {
-        changeStatusHandler()
-        sendSms()
+        changeStatusHandler("customerCreated")
+        sendSms(`Your customer id for TSUISL Bulk Gen., has been created, your user id : ${applicantData.application_no} and password : ${applicantData.application_no}`)
       });
   };
 
@@ -65,42 +65,42 @@ export default function AccountsApplicationDetails({ applicantData }) {
       .post("/changeStatus", {
         applicantId: applicantData.id,
         token: localStorage.getItem("adminToken"),
-        newStatus : "rejected"
+        newStatus: "rejected"
       })
       .then((res) => rejectSendSms());
   };
 
-  const changeStatusHandler = async (e) => {
+  const changeStatusHandler = async (status) => {
     axios
       .post("/changeStatus", {
         applicantId: applicantData.id,
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NjU5ODc1Njl9.ZCahkiAVSko1SoywOXXV39hBrPc7KXKhj0z6xvwnHdU",
-        newStatus : "customerCreated"
+        newStatus: status
       })
-      .then((res) => {});
+      .then((res) => { });
   };
 
-  const sendSms = async () => {
+  const sendSms = async (message) => {
     axios
       .post("/sms", {
-        phone:applicantData.mobile_no,
-        message: `Your customer id for TSUISL Bulk Gen., has been created, your user id : ${applicantData.application_no} and password : ${applicantData.application_no}`
+        phone: applicantData.mobile_no,
+        message: message
       })
       .then((res) => {
         alert("customer created");
-      }); 
-      
+      });
+
   };
   const rejectSendSms = async () => {
     axios
       .post("/sms", {
-        phone:applicantData.mobile_no,
+        phone: applicantData.mobile_no,
         message: `Your appl. no.: ${applicantData.application_no} for TSUISL Bulk Gen. has been rejected. Please track your appl. for details.`
       })
       .then((res) => {
         alert("customer rejected");
-      }); 
-      
+      });
+
   };
 
   const divForScroll = useRef(null);
@@ -358,7 +358,7 @@ export default function AccountsApplicationDetails({ applicantData }) {
             <UsrSign />
           </Box>
         </Paper> */}
-        <br/>
+        <br />
         <Stack direction="row" spacing={4}>
           <Button
             color="success"
@@ -367,6 +367,18 @@ export default function AccountsApplicationDetails({ applicantData }) {
             onClick={submitHandler}
           >
             Approve
+          </Button>
+          <Button
+            color="error"
+            variant="contained"
+            sx={styles.submitBtn}
+            onClick={async (e) => {
+              e.preventDefault();
+              changeStatusHandler("rev_by_applicant")
+              sendSms(`${applicantData.application_no} has been sent to you for your review by accounts`)
+            }}
+          >
+            Send to applicant
           </Button>
           {/* <Button
             color="error"

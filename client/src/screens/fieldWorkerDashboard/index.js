@@ -25,7 +25,9 @@ export default function FieldWorkerDashboard() {
           <Typography sx={styles.loginText}>
             Enter customer Phone Number
           </Typography>
-          <input
+          <br />< br/>
+          <input 
+          style={styles.input}
             type="number"
             placeholder="Enter Phone Number"
             onChange={(k) => {
@@ -33,7 +35,7 @@ export default function FieldWorkerDashboard() {
               setNumber(k.target.value);
             }}
           />
-
+<br />
           <Button
             variant="contained"
             sx={styles.loginBtn}

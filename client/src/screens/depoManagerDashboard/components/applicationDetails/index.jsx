@@ -344,23 +344,13 @@ export default function ApplicationDetails({ applicantData }) {
           <br />
           <div>
             <FormControl>
-              <FormLabel id="Frequency" sx={styles.head2}>
+            <Typography>
                 Customer Category{" "}
-              </FormLabel>
-              <RadioGroup
-                row
-                sx={styles.radioGroup}
-                aria-labelledby="Frequency of Collection per day"
-                defaultValue="Once"
-                name="frequency"
-                value={category}
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-              >
-                <FormControlLabel value="B2B" control={<Radio />} label="B2B" />
-                <FormControlLabel value="B2C" control={<Radio />} label="B2C" />
-              </RadioGroup>
+              </Typography>
+              <Typography>
+                {applicantData.category}
+              </Typography>
+
             </FormControl>
 
             <br />
@@ -420,7 +410,7 @@ export default function ApplicationDetails({ applicantData }) {
         </Paper>
         <Paper variant="outlined" sx={styles.fieldContainer}>
           <Box sx={styles.row}>
-            <UsrSign />
+           
           </Box>
         </Paper>
         <Button
@@ -428,7 +418,7 @@ export default function ApplicationDetails({ applicantData }) {
           sx={styles.submitBtn}
           onClick={submitHandler}
         >
-          Submit Application
+          Approve
         </Button>
         <IconButton
           onClick={() => {
