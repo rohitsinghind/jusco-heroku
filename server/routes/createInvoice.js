@@ -53,7 +53,7 @@ async function createInvoice(usrData) {
       });
       const wab = await sms({
         phone: `${application.mobile_no}`,
-        message: `Please download your invoice from http://bulk.jusco.rudrayati.in/invoice, your invoice_id is ${uniqId}`,
+        message: `Please download your invoice from http://bulk.jusco.rudrayati.in/invoicePdf, your invoice_id is ${uniqId}`,
       });
 
       return {

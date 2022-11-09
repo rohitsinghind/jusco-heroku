@@ -2,21 +2,22 @@ const { PrismaClient } = require("@prisma/client");
 const db = new PrismaClient();
 
 async function changeStatus(applicantId, newStatus, token) {
-  const usr = await db.user.findUnique({
-    where: {
-      token: token,
-    },
-  });
+  // const usr = await db.user.findUnique({
+  //   where: {
+  //     token: token,
+  //   },
+  // });
 
-  if (!usr) {
-    return { flag: false, message: "Bad Request" };
-  } else if (
-    usr.role == "hod" ||
-    usr.role == "depot_manager" ||
-    usr.role == "customer" ||
-    usr.role == "d2d"
-  ) {
-    //new change,customer can also change status
+  // if (!usr) {
+  //   return { flag: false, message: "Bad Request" };
+  // } else if (
+  //   usr.role == "hod" ||
+  //   usr.role == "depot_manager" ||
+  //   usr.role == "customer" ||
+  //   usr.role == "d2d"
+  // ) {
+  //new change,customer can also change status
+  try {
     const application = await db.customer.update({
       where: {
         id: applicantId,
@@ -31,12 +32,18 @@ async function changeStatus(applicantId, newStatus, token) {
       flag: true,
       message: `Success, status changed to ${newStatus}`,
     };
-  } else {
+  } catch (e) {
     return {
       flag: false,
-      message: "Access Denied",
+      message: `Not changed error: ${e.message}`,
     };
   }
+  // } else {
+  //   return {
+  //     flag: false,
+  //     message: "Access Denied",
+  //   };
+  // }
 }
 
 module.exports = { changeStatus };

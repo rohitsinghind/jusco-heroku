@@ -6,7 +6,7 @@ import Camera from "../camera";
 
 import Iframe from "react-iframe";
 import axios from "axios";
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -23,35 +23,30 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Checkbox, FormLabel } from "@mui/material";
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 export default function D2dApplicationDetails({ applicantData }) {
-
-  console.log(applicantData)
-  let navigate = useNavigate()
+  console.log(applicantData);
+  let navigate = useNavigate();
 
   const mediaQuery = window.matchMedia("(max-width: 650px)");
 
-
-const [houseId, setHouseId] = useState("")
-const [image, setImage] = useState("")
+  const [houseId, setHouseId] = useState("");
+  const [image, setImage] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
     axios
       .post("/updateCustomerData", {
         applicantId: applicantData.id,
-        token:localStorage.getItem("adminToken")
-          // house_id:houseId,
-          // image:image
+        token: localStorage.getItem("adminToken"),
+        updatedData: { house_id: houseId, qr_code_proof_img: image },
       })
       .then((res) => {
-        console.log(res.data)
-        alert(res.data?.message)
+        console.log(res.data);
+        alert(res.data?.message);
       });
-
   };
-
 
   const divForScroll = useRef(null);
 
@@ -282,44 +277,61 @@ const [image, setImage] = useState("")
                 <Typography sx={styles.field}>
                   Frequency of Collection per day
                 </Typography>
-                <Typography sx={styles.fieldData}>{applicantData.freq}</Typography>
+                <Typography sx={styles.fieldData}>
+                  {applicantData.freq}
+                </Typography>
               </Box>
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Customer Category</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.category}</Typography>
+                <Typography sx={styles.fieldData}>
+                  {applicantData.category}
+                </Typography>
               </Box>
             </div>
 
             <div>
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Area</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.area}</Typography>
+                <Typography sx={styles.fieldData}>
+                  {applicantData.area}
+                </Typography>
               </Box>
 
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Rate</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.rate} Rupees</Typography>
+                <Typography sx={styles.fieldData}>
+                  {applicantData.rate} Rupees
+                </Typography>
               </Box>
             </div>
           </Box>
         </Paper>
         {/* <Paper variant="outlined" sx={styles.fieldContainer}> */}
-          <Box sx={styles.row}>
-            <TextField
-              id="houseId"
-              type="text"
-              label="House Id"
-              value={houseId}
-              onChange={(e)=>{setHouseId(e.target.value)}}
-              sx={styles.inputField}
-            />
-          </Box>
+        <Box sx={styles.row}>
+          <TextField
+            id="houseId"
+            type="text"
+            label="House Id"
+            value={houseId}
+            onChange={(e) => {
+              setHouseId(e.target.value);
+            }}
+            sx={styles.inputField}
+          />
+        </Box>
         {/* </Paper> */}
 
         <Box sx={styles.row2}>
-           
-           <Button variant="contained" endIcon={<CameraAltIcon />} onClick={()=>{setOpen(true)}}>Capture</Button>
-          </Box>
+          <Button
+            variant="contained"
+            endIcon={<CameraAltIcon />}
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            Capture
+          </Button>
+        </Box>
         <Stack direction="row" spacing={4}>
           <Button
             color="success"
@@ -341,7 +353,7 @@ const [image, setImage] = useState("")
         >
           <KeyboardArrowUpIcon />
         </IconButton>
-        <Camera setOpen={setOpen} open={open} setImage={setImage}/>
+        <Camera setOpen={setOpen} open={open} setImage={setImage} />
       </Container>
     </>
   );

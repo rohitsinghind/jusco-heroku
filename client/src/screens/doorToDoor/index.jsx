@@ -1,7 +1,7 @@
 import React from "react";
 import { styles } from "./styles";
 import { useNavigate } from "react-router-dom";
-import {AllData} from "./allData"
+import { AllData } from "./allData";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import { Container } from "@mui/material";
@@ -35,15 +35,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const data = []
+const data = [];
 
 export default function DoorToDoor() {
+  const mediaQuery = window.matchMedia("(max-width: 650px)");
 
-    const mediaQuery = window.matchMedia("(max-width: 650px)");
-
-    let navigate = useNavigate();
-    return (
-      <>
+  let navigate = useNavigate();
+  return (
+    <>
       <Container maxWidth="xl" sx={styles.container}>
         <img
           style={mediaQuery.matches ? styles.imgLogoMobile : styles.imgLogo}
@@ -53,7 +52,8 @@ export default function DoorToDoor() {
         />
 
         <Typography sx={styles.head}>Bulk Generation System</Typography>
-        <Typography sx={styles.dashboardText}>Door-to-Door Authority  Dashboard
+        <Typography sx={styles.dashboardText}>
+          Door-to-Door Authority Dashboard
         </Typography>
         <TableContainer component={Paper}>
           <div className="line"></div>
@@ -100,8 +100,7 @@ export default function DoorToDoor() {
             </TableBody>
           </Table>
         </TableContainer>
-        </Container>
-      </>
-    );
-  }
-  
+      </Container>
+    </>
+  );
+}

@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const db = new PrismaClient();
 
 async function updateCustomerData(data) {
-  let { applicantId, updatedData } = data; //updatedData is an object
+  let { applicantId, updatedData, token } = data; //updatedData is an object
 
   console.log(applicantId);
   const usr = await db.user.findUnique({

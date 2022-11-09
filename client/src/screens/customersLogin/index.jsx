@@ -20,15 +20,14 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Radio from "@mui/material/Radio";
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
 export default function CustomersLogin() {
-  
-  const [userId, setUserId] = useState("")
+  const [userId, setUserId] = useState("");
 
   let navigate = useNavigate();
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -36,28 +35,31 @@ export default function CustomersLogin() {
     //   localStorage.setItem("adminToken", res.data?.token);
     //   console.log(res.data);
 
-      // {res.data?.flag ? navigate(res.data?.data?.role == "hod"?"/hodDashboard":res.data?.data?.role == "depot_manager"?"/depoManagerDashboard":"/AccountManagerDashboard") : alert(res.data?.message)}
+    // {res.data?.flag ? navigate(res.data?.data?.role == "hod"?"/hodDashboard":res.data?.data?.role == "depot_manager"?"/depoManagerDashboard":"/AccountManagerDashboard") : alert(res.data?.message)}
     // });
-    setOpen(true)
+    setOpen(true);
   };
 
   const mediaQuery = window.matchMedia("(max-width: 550px)");
 
   return (
     <>
-     <LoginOtpPopup
-      // otpVerified={otpVerified} otp={otp} mobile={response?.mobile_no?.substring(response.mobile_no.length-4)} 
-      open={open} setOpen={setOpen}/>
-    <Stack direction="row" sx={styles.adminBtn} spacing={2}>
-     <Button
-        onClick={() => {
-          navigate("/admin");
-        }}
-        
-        variant="text"
-      >
-        admin
-      </Button>
+      <LoginOtpPopup
+        // otpVerified={otpVerified}
+        // otp={otp}
+        // mobile={response?.mobile_no?.substring(response.mobile_no.length - 4)}
+        open={open}
+        setOpen={setOpen}
+      />
+      <Stack direction="row" sx={styles.adminBtn} spacing={2}>
+        <Button
+          onClick={() => {
+            navigate("/admin");
+          }}
+          variant="text"
+        >
+          admin
+        </Button>
       </Stack>
       <Container maxWidth="xl" sx={styles.container}>
         <Paper sx={styles.paper} variant="outlined">
@@ -75,7 +77,7 @@ export default function CustomersLogin() {
             label="Enter your Username"
             placeholder="Username"
             value={userId}
-            onChange={(e)=>setUserId(e.target.value)}
+            onChange={(e) => setUserId(e.target.value)}
             sx={styles.inputField}
           />
           <Button
@@ -106,11 +108,13 @@ export default function CustomersLogin() {
             >
               Signup here
             </Typography>
-           
           </Box>
-          <Typography onClick={() => {
-          navigate("/trackYourApplication");
-        }} sx={styles.trackAppText}>
+          <Typography
+            onClick={() => {
+              navigate("/trackYourApplication");
+            }}
+            sx={styles.trackAppText}
+          >
             Track Your Application
           </Typography>
         </Paper>

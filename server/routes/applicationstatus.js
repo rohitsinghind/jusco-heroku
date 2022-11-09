@@ -3,15 +3,15 @@ const db = new PrismaClient();
 
 async function applicationStatus({ application_no }) {
   console.log(application_no);
-  var application
+  var application;
   if (application_no[0] == "p") {
-     application = await db.customer.findUnique({
+    application = await db.customer.findUnique({
       where: {
         application_no: application_no,
       },
     });
   } else {
-     application = await db.customer.findUnique({
+    application = await db.customer.findUnique({
       where: {
         id: application_no,
       },

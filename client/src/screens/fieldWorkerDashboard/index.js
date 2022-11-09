@@ -40,7 +40,8 @@ export default function FieldWorkerDashboard() {
             onClick={async () => {
               setOld("sent");
               console.log(number);
-              const message = "some message by field manager";
+              const message =
+                "to register with Bulk Gen please visit https://bulkgen.herokuapp.com/";
               const url = `http://prodnd.bulkssms.com/httpapi/smsapi?uname=RUDRAYATI&password=Rud@1122&sender=UPDATE&receiver=${number}&route=TA&msgtype=1&sms=${message}`;
               const s = await axios.get(url);
             }}
