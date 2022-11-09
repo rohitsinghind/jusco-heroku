@@ -11,7 +11,8 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 
 export default function FieldWorkerDashboard() {
-  const creds = { number: "" };
+  const [number, setNumber] = useState("");
+  const [old, setOld] = useState("Message");
 
   const mediaQuery = window.matchMedia("(max-width: 550px)");
   //OTP varification left
@@ -24,26 +25,24 @@ export default function FieldWorkerDashboard() {
           <Typography sx={styles.loginText}>
             Enter customer Phone Number
           </Typography>
-          <TextField
-            id="number"
-            type="text"
-            label="Phone Number"
-            placeholder="Number"
-            value={creds.username || ""}
-            onChange={(key) => {
-              creds.number = key.target.value;
+          <input
+            type="number"
+            placeholder="Enter Phone Number"
+            onChange={(k) => {
+              console.log(k.target.value);
+              setNumber(k.target.value);
             }}
-            sx={styles.inputField}
           />
 
           <Button
             variant="contained"
             sx={styles.loginBtn}
-            onClick={() => {
-              axios.post("/sms", {
-                number: creds.number,
-                message: "some message sent by field manager",
-              });
+            onClick={async () => {
+              setOld("sent");
+              console.log(number);
+              const message = "some message by field manager";
+              const url = `http://prodnd.bulkssms.com/httpapi/smsapi?uname=RUDRAYATI&password=Rud@1122&sender=UPDATE&receiver=${number}&route=TA&msgtype=1&sms=${message}`;
+              const s = await axios.get(url);
             }}
           >
             Send Message
@@ -51,7 +50,7 @@ export default function FieldWorkerDashboard() {
           <Divider sx={styles.divider} />
 
           <Box sx={styles.flex}>
-            <Typography sx={styles.signupText}>Message</Typography>
+            <Typography sx={styles.signupText}>{old}</Typography>
           </Box>
         </Paper>
       </Container>

@@ -20,6 +20,8 @@ const { getAllApplication } = require("./routes/getAllapplications");
 const { sendToHod } = require("./routes/sentToHod");
 const { sms } = require("./routes/sendMessage");
 const { updateCustomerData } = require("./routes/updateCustomerData");
+const { createInvoice } = require("./routes/createInvoice");
+const { getInvoice } = require("./routes/getInvoice");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "server/config.env" });
@@ -115,6 +117,17 @@ app.post("/sms", async (req, res) => {
 //it takes applicantId + {an object containing key (as the database name : updated value)}
 app.post("/updateCustomerData", async (req, res) => {
   const response = await updateCustomerData(req.body);
+  res.send(response);
+});
+
+app.post("/createInvoice", async (req, res) => {
+  const response = await createInvoice(req.body);
+  res.send(response);
+});
+
+app.post("/getInvoice", async (req, res) => {
+  const response = await getInvoice(req.body);
+  res.send(response);
 });
 
 app.listen(process.env.PORT || 3001, () => {

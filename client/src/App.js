@@ -23,10 +23,12 @@ import ApplicationFormPdf from "./screens/customerStatusPdf";
 import FieldWorkerDashboard from "./screens/fieldWorkerDashboard";
 import BillingManagerDashBoard from "./screens/billingManager";
 import InvoicePdf from "./screens/invoicePdf";
+import InvoicePage from "./screens/seeinvoice";
 
 function App() {
   const [userData, setUserData] = useState("");
   const [applicantData, setApplicantData] = useState("");
+  const [invoiceData, setInvoiceData] = useState("");
   return (
     <>
       <div style={{ background: "#f0f2f7" }}>
@@ -117,7 +119,11 @@ function App() {
             />
             <Route
               path="/invoicePdf"
-              element={<InvoicePdf />}
+              element={<InvoicePdf invoiceData={invoiceData} />}
+            />
+            <Route
+              path="/invoice"
+              element={<InvoicePage setInvoiceData={setInvoiceData} />}
             />
           </Routes>
         </Router>
