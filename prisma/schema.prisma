@@ -1,109 +1,213 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://jusco_bulk_gen_2:MyPassword210@170.187.231.66:3306/jusco_bulk_gen_temp"
-  // url      = "mysql://root:root@localhost:3306/jusco_bulk_gen_temp" //Do not delete this
+  url      = "mysql://jusco_bulk_gen:jusco_bulk_gen_admin@170.187.231.66:3306/jusco_bulk_gen"
 }
 
 model customer {
-  id                       String @id @unique
-  application_no           String @unique
-  customer_id              String @unique
-  status                   String
-  salutation               String
-  first_name               String
-  last_name                String
-  mobile_no                String
-  email_id                 String
-  designation              String
-  document_type_1          String
-  document_no_1            String
-  document_file_name_1     String
-  document_type_2          String
-  document_no_2            String
-  document_file_name_2     String
-  document_type_3          String
-  document_no_3            String
-  document_file_name_3     String
-  billing_estb_name        String
-  billing_street           String
-  billing_zone             String
-  billing_area             String
-  billing_locality         String
-  billing_postal_code      String
-  billing_city             String
-  billing_region           String
-  billing_country          String
-  pickup_estb_name         String
-  pickup_street            String
-  pickup_zone              String
-  pickup_area              String
-  pickup_locality          String
-  pickup_postal_code       String
-  pickup_city              String
-  pickup_region            String
-  pickup_country           String
-  daily_wastage            String
-  remarks                  String
-  auth                     String
-  application_status       String
-  freq                     String
-  category                 String
-  mobileAck                String
-  area                     String
-  rate                     String
-  medium_lang              String
-  latitude                 String
-  longitude                String
-  house_id                 String @unique
-  qr_code_proof_img        String
-  signature_acknowlegement String
+  id                      BigInt   @id @default(autoincrement())
+  application_no          String   @unique(map: "application_no") @db.VarChar(64)
+  customer_id             String   @unique(map: "customer_id") @db.VarChar(64)
+  house_id                String   @unique(map: "house_id") @db.VarChar(32)
+  status                  Int
+  salutation              String   @db.VarChar(16)
+  first_name              String   @db.VarChar(128)
+  last_name               String   @db.VarChar(128)
+  mobile_no               String   @db.VarChar(10)
+  email_id                String   @db.VarChar(256)
+  designation             String   @db.VarChar(128)
+  medium_of_communication String   @db.VarChar(16)
+  document_type_1         Int
+  document_no_1           String   @db.VarChar(128)
+  document_file_name_1    String   @db.VarChar(256)
+  document_type_2         Int
+  document_no_2           String   @db.VarChar(128)
+  document_file_name_2    String   @db.VarChar(256)
+  document_type_3         Int
+  document_no_3           String   @db.VarChar(128)
+  document_file_name_3    String   @db.VarChar(256)
+  billing_estb_name       String   @db.VarChar(256)
+  billing_street          String   @db.VarChar(256)
+  billing_zone            String   @db.VarChar(32)
+  billing_area            String   @db.VarChar(32)
+  billing_locality        String   @db.VarChar(32)
+  billing_postal_code     String   @db.VarChar(6)
+  billing_city            String   @db.VarChar(128)
+  billing_region          String   @db.VarChar(128)
+  billing_country         String   @db.VarChar(32)
+  pickup_estb_name        String   @db.VarChar(256)
+  pickup_street           String   @db.VarChar(256)
+  pickup_zone             String   @db.VarChar(32)
+  pickup_area             String   @db.VarChar(32)
+  pickup_locality         String   @db.VarChar(32)
+  pickup_postal_code      String   @db.VarChar(6)
+  pickup_city             String   @db.VarChar(128)
+  pickup_region           String   @db.VarChar(128)
+  pickup_country          String   @db.VarChar(32)
+  daily_wastage           String   @db.VarChar(16)
+  remarks                 String   @db.Text
+  longitude               String   @db.VarChar(32)
+  latitude                String   @db.VarChar(32)
+  frequency               Int
+  customer_category       Int
+  signature_on_device     String   @db.VarChar(3)
+  signature_file_name     String   @db.VarChar(128)
+  depot_area              Int
+  rate_proposed           Float    @db.Float
+  qr_code                 String   @db.VarChar(8)
+  qr_code_by              Int
+  qr_code_at              String   @db.VarChar(32)
+  qr_code_time            DateTime @db.DateTime(0)
+  qr_code_image           String   @db.VarChar(512)
+  entry_date              DateTime @db.DateTime(0)
+  last_modified_by        Int
+  last_modified_date      DateTime @db.DateTime(0)
+  activity_log            String   @db.Text
 }
 
-model user {
-  username       String @unique
-  password       String
-  role           String
-  application_no String
-  id             String
-  entry_date     String
-  mod_date       String
-  mod_by         String
-  token          String @unique
+model invoice {
+  invoice_no   String   @id @db.VarChar(32)
+  customer_id  BigInt
+  invoice_date DateTime @db.Date
+  entry_date   DateTime @db.DateTime(0)
 }
 
-model sms {
-  id   String @unique
-  flag String
-  sms  String
+model invoice_details {
+  id            String @id @db.VarChar(32)
+  invoice_no    String @db.VarChar(32)
+  hsn_code      String @db.VarChar(16)
+  quantiy       Int
+  uom           String @db.VarChar(8)
+  rate_per_unit Float  @db.Float
+  discount      Float  @db.Float
+  value         Float  @db.Float
+  taxable       Float  @db.Float
+  cgst_rate     Float  @db.Float
+  cgst_amount   Float  @db.Float
+  sgst_rate     Float  @db.Float
+  sgst_amount   Float  @db.Float
+  igst_rate     Float  @db.Float
+  igst_amount   Float  @db.Float
+  total_value   Float  @db.Float
 }
 
-model track {
-  id                Int @unique
-  lastApplicationNo Int
+model master_application_status {
+  id         Int      @id @default(autoincrement())
+  status     String   @unique(map: "status") @db.VarChar(128)
+  active     String   @db.VarChar(3)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
 }
 
-model invoice_table {
-  id            String @unique
-  invoice_no    String
-  hsn_code      String
-  quantiy       String
-  uom           String
-  rate_per_unit String
-  discount      String
-  value         String
-  taxable       String
-  cgst_rate     String
-  cgst_amount   String
-  sgst_rate     String
-  sgst_amount   String
-  igst_rate     String
-  igst_amount   String
-  total_value   String
+model master_customer_category {
+  id         Int      @id @default(autoincrement())
+  category   String   @unique(map: "category") @db.VarChar(64)
+  active     String   @db.VarChar(3)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
+}
+
+model master_document {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique(map: "name") @db.VarChar(128)
+  mandatory  String   @db.VarChar(3)
+  active     String   @db.VarChar(3)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
+}
+
+model master_fixed_parameter {
+  id     Int    @id @default(autoincrement())
+  name   String @unique(map: "name") @db.VarChar(128)
+  value_ String @db.VarChar(128)
+}
+
+model master_rate_category {
+  id         Int      @id @default(autoincrement())
+  category   String   @unique(map: "category") @db.VarChar(32)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
+}
+
+model master_salutation {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique(map: "name") @db.VarChar(128)
+  active     String   @db.VarChar(3)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
+}
+
+model master_sms {
+  id         Int    @id @default(autoincrement())
+  flag_value String @unique(map: "flag_value") @db.VarChar(128)
+  sms        String @db.VarChar(512)
+}
+
+model master_user_role {
+  id         Int      @id @default(autoincrement())
+  role       String   @unique(map: "role") @db.VarChar(128)
+  active     String   @db.VarChar(3)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
+}
+
+model matrix_customer_rate {
+  id             Int      @id @default(autoincrement())
+  customer_id    Int
+  rate_id        Int
+  remarks        String   @db.Text
+  effective_date DateTime @db.Date
+  entry_by       Int
+  entry_date     DateTime @db.DateTime(0)
+  mod_by         Int
+  mod_date       DateTime @db.DateTime(0)
+}
+
+model matrix_rate {
+  id             Int      @id @default(autoincrement())
+  category       Int
+  rate           Float    @db.Float
+  effective_date DateTime @db.Date
+  entry_by       Int
+  entry_date     DateTime @db.DateTime(0)
+  mod_by         Int
+  mod_date       DateTime @db.DateTime(0)
+}
+
+model transaction_collection {
+  id               String   @id @db.VarChar(32)
+  customer_id      BigInt
+  pick_up_done     String   @db.VarChar(3)
+  pick_up_at       String   @db.VarChar(32)
+  pick_up_time     DateTime @db.DateTime(0)
+  garbage_category String   @db.VarChar(32)
+  entry_date       DateTime @db.DateTime(0)
+}
+
+model users {
+  id         Int      @id @default(autoincrement())
+  user_name  String   @db.VarChar(256)
+  login_id   String   @unique(map: "login_id") @db.VarChar(64)
+  password   String   @db.VarChar(512)
+  user_role  Int
+  active     String   @db.VarChar(3)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
 }
