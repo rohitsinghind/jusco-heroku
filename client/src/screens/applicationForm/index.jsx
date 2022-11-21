@@ -94,6 +94,7 @@ export default function ApplicationForm() {
   });
 
   const [btn, setBtn] = useState(false);
+  const [btn2, setBtn2] = useState(false);
 
   const [otp, setOtp] = useState("");
 
@@ -245,6 +246,7 @@ export default function ApplicationForm() {
       <PrivacyPolicyPopup
         open={privacyPolicyOpen}
         setOpen={setPrivacyPolicyOpen}
+        setBtn={setBtn2}
       />
       <TncPopup setOpen={setTncPopupOpen} open={tncPopupOpen} setBtn={setBtn} />
       <div ref={divForScroll}></div>
@@ -366,7 +368,17 @@ export default function ApplicationForm() {
               onChange={handleChange}
               sx={styles.inputField}
             />
-            <Box sx={styles.inputField}></Box>
+
+            <TextField
+              size="small"
+              id="bpNo"
+              type="text"
+              label="BP No."
+              placeholder="BP No."
+              // value={creds.bpNo || ""}
+              // onChange={handleChange}
+              sx={styles.inputField}
+            />
           </Box>
           <Box sx={styles.row}>
             {/* <Typography
@@ -387,7 +399,7 @@ export default function ApplicationForm() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                    // checked={}
+                     checked={btn2}
                     // onChange={()=>
                     // {if(btn==true){
                     //     setBtn(false)
@@ -1001,7 +1013,7 @@ export default function ApplicationForm() {
                   //   }}}
                 />
               }
-              label="Terms and Conditions"
+              label="I accept the terms and conditions"
             />
           </FormGroup>
         </div>

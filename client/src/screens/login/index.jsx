@@ -141,7 +141,7 @@ export default function () {
               }}
               sx={styles.signupBtn}
             >
-              Signup here
+              Create new application
             </Typography>
           </Box>
         </Paper>
