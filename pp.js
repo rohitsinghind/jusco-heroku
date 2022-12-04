@@ -61,12 +61,48 @@ const b = {
 };
 
 
+// 1
+// admin
+
+
+// 2
+// depot manager
+
+
+// 3
+// hod
+
+
+// 4
+// accounts
+
+
+// 5
+// customer
+
+
+// 6
+// d2d
+
+
+
+user_name
+login_id
+password
+user_role
+active
+entry_by
+entry_date
+mod_by
+mod_date
+
+
 //One user info  depomanager
-{"username": "root",
+{"user_name": "root",
 "password": "root",
-"role": "depot_manager",
+"user_role": "depot_manager",
 "application_no": "1231",
-"id": "myId",
+"entry_by":"ani"
 "mod_by": "ani"}
 
 //One user info  hod

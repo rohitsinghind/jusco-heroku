@@ -14,10 +14,10 @@ async function sendToHod(data) {
 
   if (!usr) {
     return { flag: false, message: "Bad Request" };
-  } else if (usr.role == "depot_manager") {
+  } else if (usr.role == 2) {
     const application = await db.customer.update({
       where: {
-        id: applicantId,
+        id: parseInt(applicantId),
       },
       data: {
         status: "HOD",

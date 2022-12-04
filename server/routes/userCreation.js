@@ -7,35 +7,39 @@ const db = new PrismaClient();
 async function createUser(usrDetails) {
   const dateTime = new Date();
   let Pass;
-  const { username, password, role, application_no, id, mod_by } = usrDetails;
-  const token = await createTokens(username);
+
+  const { user_name, password, user_role, active, entry_by, mod_by } =
+    usrDetails;
+  const Token = await createTokens(user_name);
   const hassPass = await bcrypt.hash(password, 15).then(async (hashPass) => {
     Pass = hashPass;
   });
 
   try {
-    const a = await db.user.create({
+    const a = await db.users.create({
       data: {
-        username: username || "Undefined",
-        password: Pass || "Undefined",
-        role: role || "Undefined",
-        application_no: application_no || "Undefined",
-        id: id || "Undefined",
-        entry_date: dateTime || "Undefined",
-        mod_date: dateTime || "Undefined",
-        mod_by: mod_by || "Undefined",
-        token: token,
+        user_name: user_name,
+        login_id: user_name,
+        password: Pass,
+        user_role: user_role,
+        active: active || "YES",
+        entry_by: entry_by,
+        entry_date: dateTime,
+        mod_by: mod_by,
+        mod_date: dateTime,
+        token: Token,
       },
     });
     return {
       status: "Success",
-      message: `user Created ${username}`,
-      token: token,
+      message: `user Created ${user_name}`,
+      token: Token,
     };
   } catch (e) {
     return {
       status: "Failed",
       message: `No user Created`,
+      error: e,
     };
   }
 }

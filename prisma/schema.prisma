@@ -212,4 +212,5 @@ model users {
   entry_date DateTime @db.DateTime(0)
   mod_by     Int
   mod_date   DateTime @db.DateTime(0)
+  token      String?  @db.VarChar(305)
 }

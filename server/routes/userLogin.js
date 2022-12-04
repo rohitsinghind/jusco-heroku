@@ -1,6 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
-
 const db = new PrismaClient();
 
 async function checkUser(user, password) {
@@ -26,11 +25,11 @@ async function checkUser(user, password) {
 }
 
 async function loginUser(data) {
-  const { username, password } = data;
-  console.log(username, password);
-  const user = await db.user.findUnique({
+  const { user_name, password } = data;
+  console.log(user_name, password);
+  const user = await db.users.findUnique({
     where: {
-      username: username,
+      login_id: user_name,
     },
   });
   const dataa = await checkUser(user, password);

@@ -24,7 +24,6 @@ async function changeStatus(applicantId, newStatus, token) {
       },
       data: {
         status: newStatus,
-        application_status: newStatus,
       },
     });
 

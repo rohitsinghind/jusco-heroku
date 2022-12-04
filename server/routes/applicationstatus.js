@@ -13,7 +13,7 @@ async function applicationStatus({ application_no }) {
   } else {
     application = await db.customer.findUnique({
       where: {
-        id: application_no,
+        id: parseInt(application_no),
       },
     });
   }
@@ -21,6 +21,7 @@ async function applicationStatus({ application_no }) {
   if (!application) {
     return { flag: false, message: "no application exists" };
   } else {
+    application.id = application.id.toString();
     return {
       flag: true,
       message: "Success",

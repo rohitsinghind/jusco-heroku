@@ -49,7 +49,7 @@ async function getAllApplication({ token }) {
       //d2d get all applicatios
       where: {
         status: "customerCreated",
-        qr_code_proof_img: "none"
+        qr_code_proof_img: "none",
       },
     });
 
