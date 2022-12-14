@@ -50,17 +50,6 @@ const s =  {
     "bp_no":"65237682"
   }
 
-
-const b = {
-  "username": "ani",
-  "password": "ani",
-  "role": "hod",
-  "application_no": "1231",
-  "id": "myId",
-  "mod_by": "ani",
-};
-
-
 // 1
 // admin
 
@@ -147,3 +136,14 @@ mod_date
 "mod_by": "test"}
 
 
+
+
+//Send to hod
+
+{ "frequency":11,
+    "id":1669174867,
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb290IiwiaWF0IjoxNjcxMDI3NDczfQ.Ga1m0w0P8to_D2YcZ1zMNdjQbgvE8ekDCXIKFV872DQ",
+    "signature_on_device":"yes",
+    "depot_area":8,
+    "rate_proposed":500.00
+    }
