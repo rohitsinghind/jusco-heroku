@@ -19,7 +19,7 @@ export default function CustomerApplicationStatus(props) {
 
   const [acceptCheck, setAcceptCheck] = useState(false)
 
-  console.log(props.userData?.status)
+  console.log(props.userData?.entry_date)
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -72,7 +72,7 @@ export default function CustomerApplicationStatus(props) {
               </Box>
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Application Date</Typography>
-                <Typography sx={styles.fieldData}>{}</Typography>
+                <Typography sx={styles.fieldData}>{props.userData?.entry_date}</Typography>
               </Box>
             </div>
             <div>

@@ -100,10 +100,10 @@ mod_date
 //One user info  depomanager
 {"user_name": "root",
 "password": "root",
-"user_role": "depot_manager",
+"user_role": 2,
 "application_no": "1231",
-"entry_by":"ani"
-"mod_by": "ani"}
+"entry_by":1,
+"mod_by": 1}
 
 //One user info  hod
 {

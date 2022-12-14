@@ -65,6 +65,7 @@ export default function ApplicationForm() {
     email: "",
     cemail: "",
     designation: "",
+    bp_no: "",
     doc1No: "",
     doc2No: "",
     doc3No: "",
@@ -94,6 +95,7 @@ export default function ApplicationForm() {
   });
 
   const [btn, setBtn] = useState(false);
+  const [btn2, setBtn2] = useState(false);
 
   const [otp, setOtp] = useState("");
 
@@ -145,6 +147,7 @@ export default function ApplicationForm() {
         email: creds.email,
         designation: creds.designation,
         doctype1,
+        bp_no:creds.bp_no,
         doc1No: creds.doc1No,
         docFile1: "",
         doctype2,
@@ -175,10 +178,10 @@ export default function ApplicationForm() {
         remarks: creds.remarks,
         longitude: creds.Longitude,
         latitude: creds.Latitude,
-        category:
-          doctype1 === "GSTIN" || doctype2 === "GSTIN" || doctype2 === "GSTIN"
-            ? "B2B"
-            : "B2C",
+        customer_category:
+          doctype1 === 1 || doctype2 === 1 || doctype2 === 1
+            ? 1
+            : 2,
         docFile1: docFile1,
         docFile2: docFile2,
         docFile3: docFile3,
@@ -225,15 +228,16 @@ export default function ApplicationForm() {
   };
 
   const sendOtp = async () => {
-    axios
-      .post("/sms", {
-        phone: creds.mobile.substring(creds.mobile.length - 10),
-        message: `Your OTP for TSUISL Bulk Generation application is ${otp}`,
-      })
-      .then((res) => {
-        alert("OTP " + res.data?.message);
-        setOpen(true);
-      });
+    // axios
+    //   .post("/sms", {
+    //     phone: creds.mobile.substring(creds.mobile.length - 10),
+    //     message: `Your OTP for TSUISL Bulk Generation application is ${otp}`,
+    //   })
+    //   .then((res) => {
+    //     alert("OTP " + res.data?.message);
+    //     setOpen(true);
+    //   });
+    setOpen(true);
   };
 
   useEffect(() => {
@@ -245,6 +249,7 @@ export default function ApplicationForm() {
       <PrivacyPolicyPopup
         open={privacyPolicyOpen}
         setOpen={setPrivacyPolicyOpen}
+        setBtn={setBtn2}
       />
       <TncPopup setOpen={setTncPopupOpen} open={tncPopupOpen} setBtn={setBtn} />
       <div ref={divForScroll}></div>
@@ -366,7 +371,17 @@ export default function ApplicationForm() {
               onChange={handleChange}
               sx={styles.inputField}
             />
-            <Box sx={styles.inputField}></Box>
+
+            <TextField
+              size="small"
+              id="bpNo"
+              type="text"
+              label="BP No."
+              placeholder="BP No."
+              value={creds.bpNo || ""}
+              onChange={handleChange}
+              sx={styles.inputField}
+            />
           </Box>
           <Box sx={styles.row}>
             {/* <Typography
@@ -387,7 +402,7 @@ export default function ApplicationForm() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                    // checked={}
+                     checked={btn2}
                     // onChange={()=>
                     // {if(btn==true){
                     //     setBtn(false)
@@ -418,9 +433,9 @@ export default function ApplicationForm() {
                   setDoctype1(e.target.value);
                 }}
               >
-                <MenuItem value={"GSTIN"}>GSTIN</MenuItem>
-                <MenuItem value={"Vendor ID Card"}>Vendor ID Card</MenuItem>
-                <MenuItem value={"Trade License"}>Trade License</MenuItem>
+                <MenuItem value={1}>GSTIN</MenuItem>
+                <MenuItem value={2}>Vendor ID Card</MenuItem>
+                <MenuItem value={3}>Trade License</MenuItem>
               </Select>
             </FormControl>
             <Box sx={styles.inputField}></Box>
@@ -473,11 +488,11 @@ export default function ApplicationForm() {
                   setDoctype2(e.target.value);
                 }}
               >
-                <MenuItem value={"GSTIN"}>GSTIN</MenuItem>
-                <MenuItem value={"Vendor ID Card"}>Vendor ID Card</MenuItem>
-                <MenuItem value={"Trade License"}>Trade License</MenuItem>
-                <MenuItem value={"Electricity Bill"}>Electricity Bill</MenuItem>
-                <MenuItem value={"Aadhaar"}>Aadhaar</MenuItem>
+                <MenuItem value={1}>GSTIN</MenuItem>
+                <MenuItem value={2}>Vendor ID Card</MenuItem>
+                <MenuItem value={3}>Trade License</MenuItem>
+                <MenuItem value={4}>Electricity Bill</MenuItem>
+                <MenuItem value={5}>Aadhaar</MenuItem>
               </Select>
             </FormControl>
             <Box sx={styles.inputField}></Box>
@@ -530,11 +545,11 @@ export default function ApplicationForm() {
                   setDoctype3(e.target.value);
                 }}
               >
-                <MenuItem value={"GSTIN"}>GSTIN</MenuItem>
-                <MenuItem value={"Vendor ID Card"}>Vendor ID Card</MenuItem>
-                <MenuItem value={"Trade License"}>Trade License</MenuItem>
-                <MenuItem value={"Electricity Bill"}>Electricity Bill</MenuItem>
-                <MenuItem value={"Aadhaar"}>Aadhaar</MenuItem>
+                <MenuItem value={1}>GSTIN</MenuItem>
+                <MenuItem value={2}>Vendor ID Card</MenuItem>
+                <MenuItem value={3}>Trade License</MenuItem>
+                <MenuItem value={4}>Electricity Bill</MenuItem>
+                <MenuItem value={5}>Aadhaar</MenuItem>
               </Select>
             </FormControl>
             <Box sx={styles.inputField}></Box>
@@ -1001,7 +1016,7 @@ export default function ApplicationForm() {
                   //   }}}
                 />
               }
-              label="Terms and Conditions"
+              label="I accept the terms and conditions"
             />
           </FormGroup>
         </div>

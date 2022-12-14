@@ -151,7 +151,7 @@ async function createApplication(usrData, applicationNo) {
       signature_on_device: "",
       signature_file_name: "",
       depot_area: 9,
-      rate_proposed: 90,
+      rate_proposed: 0,
       qr_code: "",
       qr_code_by: 1,
       qr_code_at: "",

@@ -21,16 +21,17 @@ export default function OtpPopup(props) {
   const [otp, setOtp] = useState("")
 
   const handleSubmit = () => {
-    if(otp === props.otp.toString()){
-      props.submitHandler()
-    }
-    else{
-      alert("invalid OTP")
-    }
+    // if(otp === props.otp.toString()){
+    //   props.submitHandler()
+    // }
+    // else{
+    //   alert("invalid OTP")
+    // }
+    props.submitHandler()
   };
 
-  console.log(otp);
-  console.log(props.otp)
+  // console.log(otp);
+  // console.log(props.otp)
 
 
   return (

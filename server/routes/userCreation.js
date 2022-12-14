@@ -36,10 +36,11 @@ async function createUser(usrDetails) {
       token: Token,
     };
   } catch (e) {
+    console.log(e.message)
     return {
       status: "Failed",
       message: `No user Created`,
-      error: e,
+      error: e.message,
     };
   }
 }

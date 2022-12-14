@@ -6,7 +6,7 @@ async function sms({ phone, message }) {
   console.log("sms");
   try {
     console.log("in try catch");
-    const url = `http://prodnd.bulkssms.com/httpapi/smsapi?uname=RUDRAYATI&password=Rud@1122&sender=UPDATE&receiver=${phone}&route=TA&msgtype=1&sms=${message}`;
+    const url = `http://prodnd.bulkssms.com/httpapi/smsapi?uname=RUDRAYATI&password=Rud@1122&sender=WEBSMS&receiver=${phone}&route=TA&msgtype=1&sms=${message}`;
 
     const s = await axios.get(url);
 

@@ -127,7 +127,7 @@ function InvoicePdf({ invoiceData }) {
           <View style={styles.box}>
             <Text style={styles.text1}>TAX INVOICE</Text>
             <View style={styles.text2}>
-              <Text>Invoice No. (GST) : {data?.invoice_no}</Text>
+              <Text>Invoice No. (GST) : {data.invoice_no}</Text>
               <Text>
                 Invoice Date: {date.getDay()}/{date.getMonth()}/
                 {date.getFullYear}
