@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const db = new PrismaClient();
 
 async function getAllApplication({ token }) {
-  const usr = await db.user.findUnique({
+  const usr = await db.users.findUnique({
     where: {
       token: token,
     },
@@ -11,7 +11,7 @@ async function getAllApplication({ token }) {
 
   if (!usr) {
     return { flag: false, message: "Bad Request" };
-  } else if (usr.role == "depot_manager") {
+  } else if (usr.user_role == 2) {
     const applicants = await db.customer.findMany();
     console.log(applicants);
     return {
@@ -19,7 +19,7 @@ async function getAllApplication({ token }) {
       message: "Success",
       data: applicants,
     };
-  } else if (usr.role == "hod") {
+  } else if (usr.user_role == 3) {
     const applicants = await db.customer.findMany({
       where: {
         status: "HOD",
@@ -32,7 +32,7 @@ async function getAllApplication({ token }) {
       message: "Success",
       data: applicants,
     };
-  } else if (usr.role == "account_manager") {
+  } else if (usr.user_role == 4) {
     const applicants = await db.customer.findMany({
       where: {
         status: "customerAccepted",
@@ -44,7 +44,7 @@ async function getAllApplication({ token }) {
       message: "Success",
       data: applicants,
     };
-  } else if (usr.role == "d2d") {
+  } else if (usr.user_role == 6) {
     const applicants = await db.customer.findMany({
       //d2d get all applicatios
       where: {

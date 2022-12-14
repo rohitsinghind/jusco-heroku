@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const { sms } = require("./sendMessage");
+// const { sms } = require("./sendMessage");
 const cloudinary = require("cloudinary");
 const path = require("path");
 
@@ -7,7 +7,7 @@ const db = new PrismaClient();
 
 async function createInvoice(usrData) {
   const dateTime = new Date();
-  console.log("creating user invoice "+usrData.id);
+  console.log("creating user invoice " + usrData.id);
 
   const { id } = usrData;
 
@@ -45,17 +45,17 @@ async function createInvoice(usrData) {
         },
       });
 
-      const ab = await sms({
-        phone: `${application.mobile_no}`,
-        message: `Your invoice is generated Total payble: ${
-          application.daily_wastage * application.rate +
-          (9 / 100) * application.rate * 2
-        }.00 Rs only.`,
-      });
-      const wab = await sms({
-        phone: `${application.mobile_no}`,
-        message: `Please download your invoice from https://bulkgen.herokuapp.com/invoicePdf, your invoice_id is ${uniqId}`,
-      });
+      // const ab = await sms({
+      //   phone: `${application.mobile_no}`,
+      //   message: `Your invoice is generated Total payble: ${
+      //     application.daily_wastage * application.rate +
+      //     (9 / 100) * application.rate * 2
+      //   }.00 Rs only.`,
+      // });
+      // const wab = await sms({
+      //   phone: `${application.mobile_no}`,
+      //   message: `Please download your invoice from https://bulkgen.herokuapp.com/invoicePdf, your invoice_id is ${uniqId}`,
+      // });
 
       return {
         status: "success",

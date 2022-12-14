@@ -8,7 +8,7 @@ datasource db {
 }
 
 model customer {
-  id                      BigInt @id @default(autoincrement())
+  id                      Int    @id @default(autoincrement())
   application_no          String @unique(map: "application_no") @db.VarChar(64)
   customer_id             String @unique(map: "customer_id") @db.VarChar(64)
   house_id                String @unique(map: "house_id") @db.VarChar(32)
@@ -212,5 +212,5 @@ model users {
   entry_date DateTime @db.DateTime(0)
   mod_by     Int
   mod_date   DateTime @db.DateTime(0)
-  token      String?  @db.VarChar(305)
+  token      String?  @unique(map: "token") @db.VarChar(305)
 }

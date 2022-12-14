@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const { sms } = require("./sendMessage");
+// const { sms } = require("./sendMessage");
 const cloudinary = require("cloudinary");
 const base64ToImage = require("base64-to-image");
 const path = require("path");
@@ -102,7 +102,7 @@ async function createApplication(usrData, applicationNo) {
   )}${dateTime.getFullYear()}`;
   const as = await db.customer.create({
     data: {
-      id: Math.floor(Math.random() * 100000) + dateTime.getTime(),
+      id: Math.floor(Math.random() * 100) + dateTime.getTime(),
       application_no: appliNo,
       customer_id: appliNo,
       house_id: appliNo,
@@ -174,10 +174,10 @@ async function createApplication(usrData, applicationNo) {
     message: `${salutation} ${Fname} ${Lname}, Your application No 
     ${appliNo} to TSUIL for Collection waste is submitted.`,
   });
-  const mn = await sms({
-    phone: `${mobile}`,
-    message: `${"Track Your Application at http://bulk.jusco.rudrayati.in/trackYourApplication for more details"}`,
-  });
+  // const mn = await sms({
+  //   phone: `${mobile}`,
+  //   message: `${"Track Your Application at http://bulk.jusco.rudrayati.in/trackYourApplication for more details"}`,
+  // });
 
   return {
     status: "success",
