@@ -1,3 +1,4 @@
+//create application formate
 const s =  {
     "salutation":"Ms.",
     "Fname":"Aniket",
@@ -86,7 +87,7 @@ mod_by
 mod_date
 
 
-//One user info  depomanager
+// depomanager creation
 {"user_name": "root",
 "password": "root",
 "user_role": 2,
@@ -94,52 +95,9 @@ mod_date
 "entry_by":1,
 "mod_by": 1}
 
-//One user info  hod
-{
-  "username": "hod",
-"password": "mypass@123",
-"role": "hod",
-"application_no": "1231",
-"id": "myId",
-"mod_by": "ani"}
-
-{
-  "username": "ac",
-"password": "mypass@123",
-"role": "account_manager",
-"application_no": "1231",
-"id": "myId",
-"mod_by": "ani"}
-
-{
-  "username": "d2d",
-"password": "test@123",
-"role": "d2d",
-"application_no": "123934",
-"id": "test",
-"mod_by": "test"}
-
-{
-"username": "fw",
-"password": "test@123",
-"role": "fw",
-"application_no": "3934",
-"id": "test",
-"mod_by": "test"}
-
-{
-"username": "billing_manager",
-"password": "test@123",
-"role": "billing_manager",
-"application_no": "395334",
-"id": "test",
-"mod_by": "test"}
-
-
 
 
 //Send to hod
-
 { "frequency":11,
     "id":1669174867,
     "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb290IiwiaWF0IjoxNjcxMDI3NDczfQ.Ga1m0w0P8to_D2YcZ1zMNdjQbgvE8ekDCXIKFV872DQ",
