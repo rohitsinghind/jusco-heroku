@@ -4,6 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const { urlencoded } = require("body-parser");
 const cloudinary = require("cloudinary");
 const path = require("path");
+const axios = require("axios");
 
 cloudinary.config({
   cloud_name: "dv4bjke87",
@@ -46,6 +47,7 @@ app.get("*", (req, res) => {
 //This is for registration of application of user
 app.post("/createApplication", async (req, res) => {
   applicationNo++;
+  console.log(applicationNo, req.body);
   const response = await createApplication(req.body, applicationNo);
   console.log("/createApplication");
   console.log(response);
@@ -108,10 +110,10 @@ app.post("/sendToHod", async (req, res) => {
 });
 
 //to send sms
-app.post("/sms", async (req, res) => {
-  const response = await sms(req.body);
-  res.send(response);
-});
+// app.post("/sms", async (req, res) => {
+//   const response = await sms(req.body);
+//   res.send(response);
+// });
 
 //universal route to change Customer application data at any given point
 //it takes applicantId + {an object containing key (as the database name : updated value)}
@@ -128,6 +130,13 @@ app.post("/createInvoice", async (req, res) => {
 app.post("/getInvoice", async (req, res) => {
   const response = await getInvoice(req.body);
   res.send(response);
+});
+
+app.post("/getApi", async (req, res) => {
+  console.log(req.body["url"]);
+  const response = await axios.get(req.body["url"]);
+  console.log(response);
+  res.send(response.data);
 });
 
 app.listen(process.env.PORT || 3001, () => {

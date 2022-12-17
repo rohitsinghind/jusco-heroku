@@ -100,6 +100,7 @@ async function createApplication(usrData, applicationNo) {
   const appliNo = `ph${applicationNo}${Math.floor(
     Math.random() * 1000
   )}${dateTime.getFullYear()}`;
+  console.log(appliNo);
   const as = await db.customer.create({
     data: {
       id: Math.floor(Math.random() * 100) + dateTime.getTime(),
@@ -169,11 +170,11 @@ async function createApplication(usrData, applicationNo) {
         .replace("T", " ")}`,
     },
   });
-  const ab = await sms({
-    phone: `${mobile}`,
-    message: `${salutation} ${Fname} ${Lname}, Your application No 
-    ${appliNo} to TSUIL for Collection waste is submitted.`,
-  });
+  // const ab = await sms({
+  //   phone: `${mobile}`,
+  //   message: `${salutation} ${Fname} ${Lname}, Your application No
+  //   ${appliNo} to TSUIL for Collection waste is submitted.`,
+  // });
   // const mn = await sms({
   //   phone: `${mobile}`,
   //   message: `${"Track Your Application at http://bulk.jusco.rudrayati.in/trackYourApplication for more details"}`,
