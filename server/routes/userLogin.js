@@ -25,11 +25,11 @@ async function checkUser(user, password) {
 }
 
 async function loginUser(data) {
-  const { user_name, password } = data;
-  console.log(user_name, password);
+  const { username, password } = data;
+  console.log(username, password);
   const user = await db.users.findUnique({
     where: {
-      login_id: user_name,
+      login_id: username,
     },
   });
   const dataa = await checkUser(user, password);

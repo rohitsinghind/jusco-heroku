@@ -38,15 +38,14 @@ export default function () {
     e.preventDefault();
     const login = await axios.post("/login", creds).then((res) => {
       localStorage.setItem("adminToken", res.data?.token);
-      const role = res.data.data.role;
+      const role = res.data.data.user_role;
       console.log(role);
-      if (role == "hod") navigate("/hodDashboard");
-      else if (role == "depot_manager") navigate("/depoManagerDashboard");
-      // else if (role == "depot_manager") navigate("/depoManagerDashboard");
-      else if (role == "d2d") navigate("/doorToDoorVerification");
-      else if (role == "account_manager") navigate("/AccountManagerDashboard");
-      else if (role == "fw") navigate("/fieldWorkerDashboard"); //ye krna hai
-      else if (role == "billing_manager") navigate("/billingmanagerDashboard"); //ye krna hai
+      if (role == 3) navigate("/hodDashboard");
+      else if (role == 2) navigate("/depoManagerDashboard");
+      else if (role == 6) navigate("/doorToDoorVerification");
+      else if (role == 4) navigate("/AccountManagerDashboard");
+      else if (role == 7) navigate("/fieldWorkerDashboard"); //ye krna hai
+    //  else if (role == 8) navigate("/billingmanagerDashboard"); //ye krna hai
     });
   };
 

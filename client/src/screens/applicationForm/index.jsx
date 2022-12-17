@@ -136,6 +136,12 @@ export default function ApplicationForm() {
   //   };
   // };
 
+  const fetchLocations = async (e) => {
+    axios.get("/getApi",{
+      url:"https://tsapplications.in/api/v1/data/areas/Z0002"
+    }).then((res)=>{console.log(res)})
+  }
+
   const submitHandler = async (e) => {
     // e.preventDefault();
     axios
@@ -242,6 +248,7 @@ export default function ApplicationForm() {
 
   useEffect(() => {
     generateOtp();
+    fetchLocations();
   }, []);
 
   return (
