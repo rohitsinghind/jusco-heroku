@@ -133,7 +133,7 @@ app.post("/getInvoice", async (req, res) => {
 });
 
 app.post("/getApi", async (req, res) => {
-  const respone = await axios.get(req.body);
+  const response = await axios.get(req.body);
   res.send(response);
 });
 
