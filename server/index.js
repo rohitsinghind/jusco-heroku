@@ -133,8 +133,10 @@ app.post("/getInvoice", async (req, res) => {
 });
 
 app.post("/getApi", async (req, res) => {
-  const response = await axios.get(req.body);
-  res.send(response);
+  console.log(req.body["url"]);
+  const response = await axios.get(req.body["url"]);
+  console.log(response);
+  res.send(response.data);
 });
 
 app.listen(process.env.PORT || 3001, () => {
