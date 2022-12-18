@@ -8,7 +8,7 @@ datasource db {
 }
 
 model customer {
-  id                      Int    @id @default(autoincrement())
+  id                     String  @id 
   application_no          String @unique(map: "application_no") @db.VarChar(64)
   customer_id             String @unique(map: "customer_id") @db.VarChar(64)
   house_id                String @unique(map: "house_id") @db.VarChar(32)
@@ -56,7 +56,7 @@ model customer {
   customer_category       Int
   signature_on_device     String @db.VarChar(3)
   signature_file_name     String @db.VarChar(128)
-  depot_area              Int
+  depot_area              String @db.VarChar(32)
   rate_proposed           Float  @db.Float
   qr_code                 String @db.VarChar(8)
   qr_code_by              Int
@@ -180,17 +180,6 @@ model matrix_customer_rate {
   mod_date       DateTime @db.DateTime(0)
 }
 
-model matrix_rate {
-  id             Int      @id @default(autoincrement())
-  category       Int
-  rate           Float    @db.Float
-  effective_date DateTime @db.Date
-  entry_by       Int
-  entry_date     DateTime @db.DateTime(0)
-  mod_by         Int
-  mod_date       DateTime @db.DateTime(0)
-}
-
 model transaction_collection {
   id               String   @id @db.VarChar(32)
   customer_id      BigInt
@@ -213,4 +202,15 @@ model users {
   mod_by     Int
   mod_date   DateTime @db.DateTime(0)
   token      String?  @unique(map: "token") @db.VarChar(305)
+}
+
+model matrix_rate {
+  id             Int      @id @default(autoincrement())
+  category       Int
+  rate           Float    @db.Float
+  effective_date DateTime @db.Date
+  entry_by       Int
+  entry_date     DateTime @db.DateTime(0)
+  mod_by         Int
+  mod_date       DateTime @db.DateTime(0)
 }
