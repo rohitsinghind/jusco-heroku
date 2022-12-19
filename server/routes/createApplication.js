@@ -100,12 +100,12 @@ async function createApplication(usrData, applicationNo) {
   const appliNo = `ph${applicationNo}${Math.floor(
     Math.random() * 1000
   )}${dateTime.getFullYear()}`;
-  const ids = Math.floor(Math.random() * 100) + dateTime.getTime().toString();
+  const id = Math.floor(Math.random() * 100) + dateTime.getTime().toString();
   console.log(Math.floor(Math.random() * 100) + dateTime.getTime());
   // console.log(appliNo);
   const as = await db.customer.create({
     data: {
-      id: ids,
+      id: id,
       application_no: appliNo,
       customer_id: appliNo,
       house_id: appliNo,

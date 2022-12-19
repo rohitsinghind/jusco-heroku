@@ -8,65 +8,65 @@ datasource db {
 }
 
 model customer {
-  id                     String  @id 
-  application_no          String @unique(map: "application_no") @db.VarChar(64)
-  customer_id             String @unique(map: "customer_id") @db.VarChar(64)
-  house_id                String @unique(map: "house_id") @db.VarChar(32)
+  id                      String  @id
+  application_no          String  @unique(map: "application_no") @db.VarChar(64)
+  customer_id             String  @unique(map: "customer_id") @db.VarChar(64)
+  house_id                String  @unique(map: "house_id") @db.VarChar(32)
   status                  Int
-  salutation              String @db.VarChar(16)
-  first_name              String @db.VarChar(128)
-  last_name               String @db.VarChar(128)
-  mobile_no               String @db.VarChar(10)
-  email_id                String @db.VarChar(256)
-  designation             String @db.VarChar(128)
-  bp_no                   String @db.VarChar(8)
-  medium_of_communication String @db.VarChar(16)
+  salutation              String  @db.VarChar(16)
+  first_name              String  @db.VarChar(128)
+  last_name               String  @db.VarChar(128)
+  mobile_no               String  @db.VarChar(10)
+  email_id                String  @db.VarChar(256)
+  designation             String  @db.VarChar(128)
+  bp_no                   String  @db.VarChar(8)
+  medium_of_communication String  @db.VarChar(16)
   document_type_1         Int
-  document_no_1           String @db.VarChar(128)
-  document_file_name_1    String @db.VarChar(256)
+  document_no_1           String  @db.VarChar(128)
+  document_file_name_1    String  @db.VarChar(256)
   document_type_2         Int
-  document_no_2           String @db.VarChar(128)
-  document_file_name_2    String @db.VarChar(256)
+  document_no_2           String  @db.VarChar(128)
+  document_file_name_2    String  @db.VarChar(256)
   document_type_3         Int
-  document_no_3           String @db.VarChar(128)
-  document_file_name_3    String @db.VarChar(256)
-  billing_estb_name       String @db.VarChar(256)
-  billing_street          String @db.VarChar(256)
-  billing_zone            String @db.VarChar(32)
-  billing_area            String @db.VarChar(32)
-  billing_locality        String @db.VarChar(32)
-  billing_postal_code     String @db.VarChar(6)
-  billing_city            String @db.VarChar(128)
-  billing_region          String @db.VarChar(128)
-  billing_country         String @db.VarChar(32)
-  pickup_estb_name        String @db.VarChar(256)
-  pickup_street           String @db.VarChar(256)
-  pickup_zone             String @db.VarChar(32)
-  pickup_area             String @db.VarChar(32)
-  pickup_locality         String @db.VarChar(32)
-  pickup_postal_code      String @db.VarChar(6)
-  pickup_city             String @db.VarChar(128)
-  pickup_region           String @db.VarChar(128)
-  pickup_country          String @db.VarChar(32)
-  daily_wastage           String @db.VarChar(16)
-  remarks                 String @db.Text
-  longitude               String @db.VarChar(32)
-  latitude                String @db.VarChar(32)
+  document_no_3           String  @db.VarChar(128)
+  document_file_name_3    String  @db.VarChar(256)
+  billing_estb_name       String  @db.VarChar(256)
+  billing_street          String  @db.VarChar(256)
+  billing_zone            String  @db.VarChar(32)
+  billing_area            String  @db.VarChar(32)
+  billing_locality        String  @db.VarChar(32)
+  billing_postal_code     String  @db.VarChar(6)
+  billing_city            String  @db.VarChar(128)
+  billing_region          String  @db.VarChar(128)
+  billing_country         String  @db.VarChar(32)
+  pickup_estb_name        String  @db.VarChar(256)
+  pickup_street           String  @db.VarChar(256)
+  pickup_zone             String  @db.VarChar(32)
+  pickup_area             String  @db.VarChar(32)
+  pickup_locality         String  @db.VarChar(32)
+  pickup_postal_code      String  @db.VarChar(6)
+  pickup_city             String  @db.VarChar(128)
+  pickup_region           String  @db.VarChar(128)
+  pickup_country          String  @db.VarChar(32)
+  daily_wastage           String  @db.VarChar(16)
+  remarks                 String  @db.Text
+  longitude               String  @db.VarChar(32)
+  latitude                String  @db.VarChar(32)
   frequency               Int
   customer_category       Int
-  signature_on_device     String @db.VarChar(3)
-  signature_file_name     String @db.VarChar(128)
-  depot_area              String @db.VarChar(32)
-  rate_proposed           Float  @db.Float
-  qr_code                 String @db.VarChar(8)
+  signature_on_device     String  @db.VarChar(3)
+  signature_file_name     String  @db.VarChar(128)
+  rate_proposed           Float   @db.Float
+  qr_code                 String  @db.VarChar(8)
   qr_code_by              Int
-  qr_code_at              String @db.VarChar(32)
-  qr_code_time            String @db.VarChar(30)
-  qr_code_image           String @db.VarChar(512)
-  entry_date              String @db.VarChar(30)
+  qr_code_at              String  @db.VarChar(32)
+  qr_code_time            String  @db.VarChar(30)
+  qr_code_image           String  @db.VarChar(512)
+  entry_date              String  @db.VarChar(30)
   last_modified_by        Int
-  last_modified_date      String @db.VarChar(30)
-  activity_log            String @db.Text
+  last_modified_date      String  @db.VarChar(30)
+  activity_log            String  @db.Text
+  depot_area              String? @db.VarChar(255)
 }
 
 model invoice {
@@ -171,7 +171,9 @@ model master_user_role {
 model matrix_customer_rate {
   id             Int      @id @default(autoincrement())
   customer_id    Int
-  rate_id        Int
+  matrix_rate_id Int
+  rate_value     Float    @db.Float
+  rate_category  String   @db.VarChar(16)
   remarks        String   @db.Text
   effective_date DateTime @db.Date
   entry_by       Int
@@ -204,13 +206,36 @@ model users {
   token      String?  @unique(map: "token") @db.VarChar(305)
 }
 
-model matrix_rate {
-  id             Int      @id @default(autoincrement())
-  category       Int
-  rate           Float    @db.Float
-  effective_date DateTime @db.Date
-  entry_by       Int
-  entry_date     DateTime @db.DateTime(0)
-  mod_by         Int
-  mod_date       DateTime @db.DateTime(0)
+model master_customer_classification {
+  id         Int      @id @default(autoincrement())
+  category   String   @unique(map: "category") @db.VarChar(64)
+  active     String   @db.VarChar(3)
+  entry_by   Int
+  entry_date DateTime @db.DateTime(0)
+  mod_by     Int
+  mod_date   DateTime @db.DateTime(0)
+}
+
+model master_customer_sub_classification {
+  id           Int      @id @default(autoincrement())
+  category_id  Int
+  sub_category String   @db.VarChar(64)
+  active       String   @db.VarChar(3)
+  entry_by     Int
+  entry_date   DateTime @db.DateTime(0)
+  mod_by       Int
+  mod_date     DateTime @db.DateTime(0)
+}
+
+model matrix_rate_category {
+  id              Int      @id @default(autoincrement())
+  sub_category_id Int
+  rate_urban      Float    @db.Float
+  rate_semi_urban Float    @db.Float
+  rate_rural      Float    @db.Float
+  effective_date  DateTime @db.Date
+  entry_by        Int
+  entry_date      DateTime @db.DateTime(0)
+  mod_by          Int
+  mod_date        DateTime @db.DateTime(0)
 }
