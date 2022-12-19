@@ -56,7 +56,7 @@ model customer {
   customer_category       Int
   signature_on_device     String @db.VarChar(3)
   signature_file_name     String @db.VarChar(128)
-  depot_area              Int
+  depot_area              String @db.VarChar(32)
   rate_proposed           Float  @db.Float
   qr_code                 String @db.VarChar(8)
   qr_code_by              Int
