@@ -49,9 +49,9 @@ export default function ApplicationDetails({ applicantData }) {
     e.preventDefault();
     axios
       .post("/sendToHod", {
-        applicantId: applicantData.id,
+        id: applicantData.id,
         token: localStorage.getItem("adminToken"),
-        freq,category,mobileAck,area,rate
+        frequency:freq,signature_on_device:mobileAck,deport_area:area,rate_proposed:rate
       })
       .then((res) => alert(res.data?.message));
       // navigate("/depoManagerDashboard")
@@ -297,17 +297,17 @@ export default function ApplicationDetails({ applicantData }) {
                 }}
               >
                 <FormControlLabel
-                  value="Once"
+                  value={1}
                   control={<Radio />}
                   label="Once"
                 />
                 <FormControlLabel
-                  value="Twice"
+                  value={2}
                   control={<Radio />}
                   label="Twice"
                 />
                 <FormControlLabel
-                  value="onCall"
+                  value={3}
                   control={<Radio />}
                   label="On Call"
                 />
@@ -371,24 +371,17 @@ export default function ApplicationDetails({ applicantData }) {
 </FormControl> */}
             <br />
             <Box sx={styles.inputrow}>
-              <FormControl sx={styles.inputField} fullWidth>
-                <InputLabel id="Area">Depot</InputLabel>
-                <Select
-                  labelId="area"
-                  id="area"
-                  value={area}
-                  label="Depot"
-                  onChange={(e) => {
-                    setArea(e.target.value);
-                  }}
-                >
-                  <MenuItem value={"RD"}>Ramdasbhatta</MenuItem>
-                  <MenuItem value={"KSD"}>Kashidih</MenuItem>
-                  <MenuItem value={"NT"}>Northern Town</MenuItem>
-                  <MenuItem value={"BRD"}>Baridih</MenuItem>
-                  <MenuItem value={"BRM"}>Burmamines</MenuItem>
-                </Select>
-              </FormControl>
+            <TextField
+            InputProps={{
+              readOnly: true,
+            }}
+            id="deport"
+            type="text"
+            label="Deport"
+            value={applicantData.pickup_zone}
+            onChange={handleChange}
+            sx={styles.inputField}
+          />
               <FormControl sx={styles.inputField} fullWidth>
                 <InputLabel id="rate">Rate/ Pickup</InputLabel>
                 <Select
@@ -400,9 +393,9 @@ export default function ApplicationDetails({ applicantData }) {
                     setRate(e.target.value);
                   }}
                 >
-                  <MenuItem value={"10"}>10.00</MenuItem>
-                  <MenuItem value={"15"}>15.00</MenuItem>
-                  <MenuItem value={"20"}>20.00</MenuItem>
+                  <MenuItem value={10}>10.00</MenuItem>
+                  <MenuItem value={15}>15.00</MenuItem>
+                  <MenuItem value={20}>20.00</MenuItem>
                 </Select>
               </FormControl>
             </Box>

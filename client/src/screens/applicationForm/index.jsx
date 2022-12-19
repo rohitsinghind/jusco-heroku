@@ -71,8 +71,6 @@ export default function ApplicationForm() {
     doc3No: "",
     nameBa: "",
     streetHouseNoBa: "",
-    zoneBa: "",
-    localityBa: "",
     postalCodeBa: "",
     cityBa: "Jamshedpur",
     regionBa: "Jharkhand",
@@ -83,6 +81,22 @@ export default function ApplicationForm() {
     Latitude: "",
   });
 
+  const [areasBa, setAreasBa] = useState([])
+  const [LocalitiesBa, setLocalitiesBa] = useState([])
+  const [zones, setZones] = useState([])
+  const [zoneIdBa, setZoneIdBa] = useState("")
+  const [areaIdBa, setAreaIdBa] = useState("")
+
+  const [areasPa, setAreasPa] = useState([])
+  const [LocalitiesPa, setLocalitiesPa] = useState([])
+  const [zoneIdPa, setZoneIdPa] = useState("")
+  const [areaIdPa, setAreaIdPa] = useState("")
+
+  const [zoneBa, setZoneBa] = useState("")
+  const [zonePa, setZonePa] = useState("")
+  const [localityBa, setLocalityBa] = useState("")
+  const [localityPa, setLocalityPa] = useState("")
+
   const [val, setVal] = useState({
     namePa: "",
     streetHouseNoPa: "",
@@ -90,8 +104,6 @@ export default function ApplicationForm() {
     cityPa: "Jamshedpur",
     regionPa: "Jharkhand",
     countryPa: "India",
-    zonePa: "",
-    localityPa: "",
   });
 
   const [btn, setBtn] = useState(false);
@@ -109,7 +121,7 @@ export default function ApplicationForm() {
     setVal({ ...val, [key.target.id]: key.target.value });
   };
 
-  const matchValue = (key) => {
+  const  matchValue = (key) => {
     key.preventDefault();
     setVal({
       namePa: creds.nameBa,
@@ -118,11 +130,14 @@ export default function ApplicationForm() {
       cityPa: creds.cityBa,
       regionPa: creds.regionBa,
       countryPa: creds.countryBa,
-      areaPa: creds.areaBa,
-      zonePa: creds.zoneBa,
-      localityPa: creds.localityBa,
     });
-    setAreaPa(areaBa);
+    //setAreasPa(areasPa)
+    //setLocalitiesPa(LocalitiesBa)
+    // setZoneIdPa(zoneIdBa)
+    // setAreaIdPa(areaIdBa)
+    setAreaPa(areaBa.toString());
+    setZonePa(zoneBa);
+    setLocalityPa(localityBa.toString())
   };
 
   // const handleDoc1Change = (e) => {
@@ -136,11 +151,60 @@ export default function ApplicationForm() {
   //   };
   // };
 
-  const fetchLocations = async (e) => {
-    axios.get("/getApi",{
-      url:"https://tsapplications.in/api/v1/data/areas/Z0002"
-    }).then((res)=>{console.log(res)})
+
+
+
+  const fetchAreaBa = async (e) => {
+    axios.post("/getApi",{
+      url:`https://tsapplications.in/api/v1/data/areas/${zoneIdBa}`
+    }).then((res)=>{setAreasBa(res.data);setAreasPa(res.data)})
   }
+  const fetchAreaPa = async (e) => {
+    axios.post("/getApi",{
+      url:"https://tsapplications.in/api/v1/data/areas/Z0002"
+    }).then((res)=>{setAreasPa(res.data)})
+  }
+  const fetchZones = async (e) => {
+    axios.post("/getApi",{
+      url:"https://tsapplications.in/api/v1/data/zones"
+    }).then((res)=>{setZones(res.data)})
+  }
+
+  const fetchLocalityBa = async (e) => {
+    axios.post("/getApi",{
+      url:`https://tsapplications.in/api/v1/data/locations/${areaIdBa}`
+    }).then((res)=>{setLocalitiesBa(res.data);setLocalitiesPa(res.data)})
+  }
+  const fetchLocalityPa = async (e) => {
+    axios.post("/getApi",{
+      url:"https://tsapplications.in/api/v1/data/areas/Z0002"
+    }).then((res)=>{setLocalitiesPa(res.data)})
+  }
+
+  useEffect(() => {
+    if(zoneIdBa){
+    fetchAreaBa();
+    }
+  }, [zoneIdBa,zoneBa])
+
+  useEffect(() => {
+    if(areaIdBa){
+      fetchLocalityBa();
+    }
+  }, [areaIdBa,areaBa])
+
+  useEffect(() => {
+    if(zoneIdPa){
+    fetchAreaPa();
+    }
+  }, [zoneIdPa,zonePa])
+
+  useEffect(() => {
+    if(areaIdPa){
+      fetchLocalityPa();
+    }
+  }, [areaIdPa,areaPa])
+  
 
   const submitHandler = async (e) => {
     // e.preventDefault();
@@ -164,9 +228,9 @@ export default function ApplicationForm() {
         docFile3: "",
         nameBa: creds.nameBa,
         streetHouseNoBa: creds.streetHouseNoBa,
-        zoneBa: creds.zoneBa,
+        zoneBa,
         areaBa,
-        localityBa: creds.localityBa,
+        localityBa,
         postalCodeBa: creds.postalCodeBa,
         cityBa: creds.cityBa,
         regionBa: creds.regionBa,
@@ -177,9 +241,9 @@ export default function ApplicationForm() {
         cityPa: val.cityPa,
         regionPa: val.regionPa,
         countryPa: val.countryPa,
-        zonePa: val.zonePa,
+        zonePa,
         areaPa,
-        localityPa: val.localityPa,
+        localityPa,
         qty: creds.qty,
         remarks: creds.remarks,
         longitude: creds.Longitude,
@@ -203,7 +267,7 @@ export default function ApplicationForm() {
     // setOpen(true);
   };
 
-  // console.log(creds.mobile.substring(creds.mobile.length-10))
+ 
 
   let sigPad = useRef({});
   let data = "";
@@ -227,6 +291,8 @@ export default function ApplicationForm() {
     show();
   }
 
+
+
   const mediaQuery = window.matchMedia("(max-width: 650px)");
 
   const generateOtp = () => {
@@ -248,11 +314,13 @@ export default function ApplicationForm() {
 
   useEffect(() => {
     generateOtp();
-    fetchLocations();
+    fetchZones();
   }, []);
 
   return (
     <>
+
+
       <PrivacyPolicyPopup
         open={privacyPolicyOpen}
         setOpen={setPrivacyPolicyOpen}
@@ -621,18 +689,31 @@ export default function ApplicationForm() {
           </Box>
 
           <Box sx={styles.row}>
-            <TextField
-              size="small"
-              id="zoneBa"
-              type="number"
-              label="Zone"
-              placeholder="Zone"
-              value={creds.zoneBa || ""}
-              onChange={handleChange}
-              sx={styles.inputField}
-            />
+            
+            <FormControl size="small" sx={styles.inputField} fullWidth>
+              <InputLabel id="zoneBa">{"Zone"}</InputLabel>
+             
+              <Select
+                labelId="zoneBa"
+                id="zoneBa"
+                value={zoneBa}
+                label="Zone"
+                onChange={(e) => {
+                  setZoneBa(e.target.value);
+                  setZoneIdBa(zones.filter((e)=>{if(e.name===zoneBa){return e}})[0].zone_id);
+                }}>
+                {
+                  zones.map((e)=>{
+                    return <MenuItem value={e?.name}>{e?.name}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
+
+            
             <FormControl size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="areaBa">{"Area"}</InputLabel>
+             
               <Select
                 labelId="areaBa"
                 id="areaBa"
@@ -640,28 +721,37 @@ export default function ApplicationForm() {
                 label="Area"
                 onChange={(e) => {
                   setAreaBa(e.target.value);
-                }}
-              >
-                <MenuItem value={"RD"}>Ramdasbhatta</MenuItem>
-                <MenuItem value={"KSD"}>Kashidih</MenuItem>
-                <MenuItem value={"NT"}>Northern Town</MenuItem>
-                <MenuItem value={"BRD"}>Baridih</MenuItem>
-                <MenuItem value={"BRM"}>Burmamines</MenuItem>
+                  setAreaIdBa(areasBa.filter((e)=>{if(e.name===areaBa){return e}})[0]?.area_id);
+                }}>
+                {
+                  areasBa.map((ar)=>{
+                    return <MenuItem value={ar?.name}>{ar?.name}</MenuItem>
+                  })
+                }
               </Select>
             </FormControl>
           </Box>
 
           <Box sx={styles.row}>
-            <TextField
-              size="small"
-              id="localityBa"
-              type="text"
-              label="Locality"
-              placeholder="Locality"
-              value={creds.localityBa || ""}
-              onChange={handleChange}
-              sx={styles.inputField}
-            />
+             <FormControl size="small" sx={styles.inputField} fullWidth>
+              <InputLabel id="localityBa">{"Locality"}</InputLabel>
+             
+              <Select
+                labelId="localityBa"
+                id="localityBa"
+                value={localityBa}
+                label="Area"
+                onChange={(e) => {
+                  setLocalityBa(e.target.value);
+                  
+                }}>
+                {
+                  LocalitiesBa.map((e)=>{
+                    return <MenuItem value={e?.name}>{e?.name}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
             <TextField
               size="small"
               id="postalCodeBa"
@@ -747,47 +837,70 @@ export default function ApplicationForm() {
           </Box>
 
           <Box sx={styles.row}>
-            <TextField
-              size="small"
-              id="zonePa"
-              type="number"
-              label="Zone"
-              placeholder="Zone"
-              value={val.zonePa || ""}
-              onChange={handleChange2}
-              sx={styles.inputField}
-            />
-            <FormControl size="small" sx={styles.inputField} fullWidth>
-              <InputLabel id="Area">area</InputLabel>
+          <FormControl size="small" sx={styles.inputField} fullWidth>
+              <InputLabel id="zonePa">{"Zone"}</InputLabel>
+             
               <Select
-                labelId="Area"
+                labelId="zonePa"
+                id="zonePa"
+                value={zonePa}
+                label="Zone"
+                onChange={(e) => {
+                  setZonePa(e.target.value);
+                  setZoneIdPa(zones.filter((e)=>{if(e.name===zonePa){return e}})[0].zone_id);
+                }}>
+                {
+                  zones.map((e)=>{
+                    return <MenuItem value={e?.name}>{e?.name}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
+
+            
+            <FormControl size="small" sx={styles.inputField} fullWidth>
+              <InputLabel id="areaPa">{"Area"}</InputLabel>
+             
+              <Select
+                labelId="areaPa"
                 id="areaPa"
+                defaultValue=""
                 value={areaPa}
-                label="Agea"
+                label="Area"
                 onChange={(e) => {
                   setAreaPa(e.target.value);
-                }}
-              >
-                <MenuItem value={"RD"}>Ramdasbhatta</MenuItem>
-                <MenuItem value={"KSD"}>Kashidih</MenuItem>
-                <MenuItem value={"NT"}>Northern Town</MenuItem>
-                <MenuItem value={"BRD"}>Baridih</MenuItem>
-                <MenuItem value={"BRM"}>Burmamines</MenuItem>
+                  setAreaIdPa(areasPa.filter((e)=>{if(e.name===areaPa){return e}})[0]?.area_id);
+                }}>
+                {
+                  areasPa.map((ar)=>{
+                    return <MenuItem value={ar?.name}>{ar?.name}</MenuItem>
+                  })
+                }
               </Select>
             </FormControl>
           </Box>
 
           <Box sx={styles.row}>
-            <TextField
-              size="small"
-              id="localityPa"
-              type="text"
-              label="locality"
-              placeholder="locality"
-              value={val.localityPa || ""}
-              onChange={handleChange2}
-              sx={styles.inputField}
-            />
+             <FormControl size="small" sx={styles.inputField} fullWidth>
+              <InputLabel id="localityPa">{"Locality"}</InputLabel>
+             
+              <Select
+                labelId="localityPa"
+                id="localityPa"
+                defaultValue=""
+                value={localityPa}
+                label="Area"
+                onChange={(e) => {
+                  setLocalityPa(e.target.value);
+                  
+                }}>
+                {
+                  LocalitiesPa.map((e)=>{
+                    return <MenuItem value={e?.name}>{e?.name}</MenuItem>
+                  })
+                }
+              </Select>
+            </FormControl>
             <TextField
               size="small"
               id="postalCodePa"

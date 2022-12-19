@@ -38,15 +38,16 @@ export default function TrackYourApplication(props) {
           // setOpen(true);
           // generateOtp();
           //sendOtp();
-            axios
-              .post("/sms", {
-                phone:res.data?.data?.mobile_no,
-                message: `Your OTP for TSUISL Bulk Generation application is ${otp}`
-              })
-              .then((res) => {
-                alert("OTP " + res.data?.message);
-                setOpen(true)
-              }); 
+            // axios
+            //   .post("/sms", {
+            //     phone:res.data?.data?.mobile_no,
+            //     message: `Your OTP for TSUISL Bulk Generation application is ${otp}`
+            //   })
+            //   .then((res) => {
+            //     alert("OTP " + res.data?.message);
+            //     setOpen(true)
+            //   }); 
+            setOpen(true)
         }
         else{
           alert("User not found");
