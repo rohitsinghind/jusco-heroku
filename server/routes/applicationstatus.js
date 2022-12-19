@@ -11,9 +11,12 @@ async function applicationStatus({ application_no }) {
       },
     });
   } else {
+    if (typeof application_no != String)
+      application_no = application_no.toString();
+
     application = await db.customer.findUnique({
       where: {
-        id: parseInt(application_no),
+        id: application_no,
       },
     });
   }

@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const db = new PrismaClient();
 
 async function changeStatus(applicantId, newStatus, token) {
+  if (typeof applicantId != String) applicantId = applicantId.toString();
   // const usr = await db.user.findUnique({
   //   where: {
   //     token: token,

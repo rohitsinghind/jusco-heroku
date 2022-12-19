@@ -22,7 +22,7 @@ async function getAllApplication({ token }) {
   } else if (usr.user_role == 3) {
     const applicants = await db.customer.findMany({
       where: {
-        status: "HOD",
+        status: 3,
       },
     });
 
@@ -35,7 +35,7 @@ async function getAllApplication({ token }) {
   } else if (usr.user_role == 4) {
     const applicants = await db.customer.findMany({
       where: {
-        status: "customerAccepted",
+        status: 5,
       },
     });
     console.log(applicants);
@@ -48,8 +48,8 @@ async function getAllApplication({ token }) {
     const applicants = await db.customer.findMany({
       //d2d get all applicatios
       where: {
-        status: "customerCreated",
-        qr_code_proof_img: "none",
+        status: 6,
+        // qr_code_image: "",
       },
     });
 
