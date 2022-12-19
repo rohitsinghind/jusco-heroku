@@ -51,7 +51,10 @@ export default function ApplicationDetails({ applicantData }) {
       .post("/sendToHod", {
         id: applicantData.id,
         token: localStorage.getItem("adminToken"),
-        frequency:freq,signature_on_device:mobileAck,deport_area:area,rate_proposed:rate
+        frequency:freq,
+        signature_on_device:mobileAck?"yes":"no",
+        deport_area:area,
+        rate_proposed:rate
       })
       .then((res) => alert(res.data?.message));
       // navigate("/depoManagerDashboard")
@@ -289,7 +292,7 @@ export default function ApplicationDetails({ applicantData }) {
                 row
                 sx={styles.radioGroup}
                 aria-labelledby="Frequency of Collection per day"
-                defaultValue="Once"
+                defaultValue={1}
                 name="frequency"
                 value={freq}
                 onChange={(e) => {

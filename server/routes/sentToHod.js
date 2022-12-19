@@ -5,6 +5,8 @@ async function sendToHod(data) {
   let { frequency, id, token, signature_on_device, depot_area, rate_proposed } =
     data;
 
+
+
   const usr = await db.users.findUnique({
     where: {
       token: token,
@@ -23,7 +25,7 @@ async function sendToHod(data) {
         signature_on_device: signature_on_device,
         depot_area: depot_area,
         rate_proposed: rate_proposed,
-        frequency: frequency,
+        frequency: parseInt(frequency),
       },
     });
 

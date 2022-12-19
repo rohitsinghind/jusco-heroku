@@ -77,8 +77,8 @@ export default function ApplicationForm() {
     countryBa: "India",
     qty: "",
     remarks: "",
-    Longitude: "",
-    Latitude: "",
+    Longitude: "0",
+    Latitude: "0",
   });
 
   const [areasBa, setAreasBa] = useState([])
@@ -362,6 +362,7 @@ export default function ApplicationForm() {
                 </Select>
               </FormControl>
               <TextField
+              required
                 size="small"
                 id="Fname"
                 type="text"
@@ -373,6 +374,7 @@ export default function ApplicationForm() {
               />
             </div>
             <TextField
+            required
               size="small"
               id="Lname"
               type="text"
@@ -385,6 +387,7 @@ export default function ApplicationForm() {
           </Box>
           <Box sx={styles.row}>
             <TextField
+            required
               size="small"
               error={creds.mobile !== creds.cmobile}
               id="mobile"
@@ -397,6 +400,7 @@ export default function ApplicationForm() {
             />
 
             <TextField
+            required
               size="small"
               error={creds.mobile !== creds.cmobile}
               id="cmobile"
@@ -411,6 +415,7 @@ export default function ApplicationForm() {
 
           <Box sx={styles.row}>
             <TextField
+            required
               size="small"
               error={creds.email !== creds.cemail}
               id="email"
@@ -423,6 +428,7 @@ export default function ApplicationForm() {
             />
 
             <TextField
+            required
               size="small"
               error={creds.email !== creds.cemail}
               id="cemail"
@@ -497,7 +503,7 @@ export default function ApplicationForm() {
         <Paper variant="outlined" sx={styles.fieldContainer}>
           <Typography sx={styles.signupText}>Documents Details</Typography>
           <Box sx={styles.row}>
-            <FormControl size="small" sx={styles.inputField} fullWidth>
+            <FormControl required size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="Document">{"Documet Type"}</InputLabel>
               <Select
                 labelId="Document"
@@ -517,6 +523,7 @@ export default function ApplicationForm() {
           </Box>
           <Box sx={styles.row}>
             <TextField
+            required
               size="small"
               id="doc1No"
               type="text"
@@ -531,6 +538,7 @@ export default function ApplicationForm() {
                 Upload your Document
               </Typography>
               <input
+              required
                 style={styles.inputBtn}
                 type={"file"}
                 accept="image/*"
@@ -667,6 +675,7 @@ export default function ApplicationForm() {
           <Typography sx={styles.signupText}>Billing Address</Typography>
           <Box sx={styles.row}>
             <TextField
+            required
               size="small"
               id="nameBa"
               type="text"
@@ -677,6 +686,7 @@ export default function ApplicationForm() {
               sx={styles.inputField}
             />
             <TextField
+            required
               size="small"
               id="streetHouseNoBa"
               type="text"
@@ -690,7 +700,7 @@ export default function ApplicationForm() {
 
           <Box sx={styles.row}>
             
-            <FormControl size="small" sx={styles.inputField} fullWidth>
+            <FormControl required size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="zoneBa">{"Zone"}</InputLabel>
              
               <Select
@@ -711,7 +721,7 @@ export default function ApplicationForm() {
             </FormControl>
 
             
-            <FormControl size="small" sx={styles.inputField} fullWidth>
+            <FormControl required size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="areaBa">{"Area"}</InputLabel>
              
               <Select
@@ -733,7 +743,7 @@ export default function ApplicationForm() {
           </Box>
 
           <Box sx={styles.row}>
-             <FormControl size="small" sx={styles.inputField} fullWidth>
+             <FormControl required size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="localityBa">{"Locality"}</InputLabel>
              
               <Select
@@ -753,6 +763,7 @@ export default function ApplicationForm() {
               </Select>
             </FormControl>
             <TextField
+            required
               size="small"
               id="postalCodeBa"
               type="number"
@@ -814,6 +825,7 @@ export default function ApplicationForm() {
 
           <Box sx={styles.row}>
             <TextField
+            required
               size="small"
               id="namePa"
               type="text"
@@ -825,6 +837,7 @@ export default function ApplicationForm() {
             />
 
             <TextField
+            required
               size="small"
               id="streetHouseNoPa"
               type="text"
@@ -837,7 +850,7 @@ export default function ApplicationForm() {
           </Box>
 
           <Box sx={styles.row}>
-          <FormControl size="small" sx={styles.inputField} fullWidth>
+          <FormControl required size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="zonePa">{"Zone"}</InputLabel>
              
               <Select
@@ -858,7 +871,7 @@ export default function ApplicationForm() {
             </FormControl>
 
             
-            <FormControl size="small" sx={styles.inputField} fullWidth>
+            <FormControl required size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="areaPa">{"Area"}</InputLabel>
              
               <Select
@@ -881,7 +894,7 @@ export default function ApplicationForm() {
           </Box>
 
           <Box sx={styles.row}>
-             <FormControl size="small" sx={styles.inputField} fullWidth>
+             <FormControl required size="small" sx={styles.inputField} fullWidth>
               <InputLabel id="localityPa">{"Locality"}</InputLabel>
              
               <Select
@@ -902,6 +915,7 @@ export default function ApplicationForm() {
               </Select>
             </FormControl>
             <TextField
+            required
               size="small"
               id="postalCodePa"
               type="number"
@@ -1080,24 +1094,24 @@ export default function ApplicationForm() {
           />
           <Box sx={styles.inputrow}>
             <TextField
-              InputProps={{
-                readOnly: true,
-              }}
+              // InputProps={{
+              //   readOnly: true,
+              // }}
               id="Longitude"
               type="text"
               label="Longitude"
-              value="22.804565"
+              value={creds.Longitude}
               onChange={handleChange}
               sx={styles.inputField}
             />
             <TextField
-              InputProps={{
-                readOnly: true,
-              }}
+              // InputProps={{
+              //   readOnly: true,
+              // }}
               id="Latitude"
               type="text"
               label="Latitude"
-              value="86.202873"
+              value={creds.Latitude}
               onChange={handleChange}
               sx={styles.inputField}
             />
