@@ -54,11 +54,11 @@ export default function HodApplicationDetails({ applicantData }) {
       .post("/changeStatus", {
         applicantId: applicantData.id,
         token: localStorage.getItem("adminToken"),
-        newStatus: "accepted"
+        newStatus: 4
       })
       .then((res) => {
         alert(res.data?.message)
-        sendOtp()
+        // sendOtp()
       });
 
   };
@@ -69,7 +69,7 @@ export default function HodApplicationDetails({ applicantData }) {
       .post("/changeStatus", {
         applicantId: applicantData.id,
         token: localStorage.getItem("adminToken"),
-        newStatus: "depo"
+        newStatus: 9
       })
       .then((res) => alert(res.data?.message));
   };
@@ -80,9 +80,12 @@ export default function HodApplicationDetails({ applicantData }) {
       .post("/changeStatus", {
         applicantId: applicantData.id,
         token: localStorage.getItem("adminToken"),
-        newStatus : "rejected"
+        newStatus : 7
       })
-      .then((res) => rejectSendSms());
+      .then((res) => {
+        alert(res.data?.message)
+        //rejectSendSms()
+      });
   };
 
   const sendOtp = async () => {
@@ -337,23 +340,24 @@ export default function HodApplicationDetails({ applicantData }) {
                 <Typography sx={styles.field}>
                   Frequency of Collection per day
                 </Typography>
-                <Typography sx={styles.fieldData}>{applicantData.freq}</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.frequency===1?"Once":applicantData.frequency===2?"Twice":"On a Call"}</Typography>
               </Box>
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Customer Category</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.category}</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.customer_category===1?"B2B":"B2C"}</Typography>
               </Box>
             </div>
 
             <div>
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Area</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.area}</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.pickup_area}</Typography>
               </Box>
 
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Rate</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.rate} Rupees</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.rate_proposed
+} Rupees</Typography>
               </Box>
             </div>
           </Box>

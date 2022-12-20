@@ -23,6 +23,10 @@ const { sms } = require("./routes/sendMessage");
 const { updateCustomerData } = require("./routes/updateCustomerData");
 const { createInvoice } = require("./routes/createInvoice");
 const { getInvoice } = require("./routes/getInvoice");
+const { getCustomerClassification } = require("./routes/getTableData");
+const {getCustomerSubClassification} = require("./routes/getCustomerSubClassification");
+const { rate_category } = require("./routes/rateCategory");
+const { genSaltSync } = require("bcrypt");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "server/config.env" });
@@ -139,6 +143,23 @@ app.post("/getApi", async (req, res) => {
   res.send(response.data);
 });
 
+app.post("/getCustomerClassification", async (req,res) => {
+  console.log("getting cus classification");
+const response = await getCustomerClassification()
+res.send(response)
+})
+
+app.post("/getCustomerSubClassification", async (req,res)=>{
+  const response = await getCustomerSubClassification(req.body)
+  res.send(response)
+})
+app.post("/rateCategory", async (req,res)=>{
+  const response = await rate_category(req.body)
+  res.send(response)
+})
+
 app.listen(process.env.PORT || 3001, () => {
   console.log(`localhost:${process.env.PORT}`);
 });
+
+

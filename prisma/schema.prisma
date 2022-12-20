@@ -237,5 +237,4 @@ model matrix_rate_category {
   entry_by        Int
   entry_date      DateTime @db.DateTime(0)
   mod_by          Int
-  mod_date        DateTime @db.DateTime(0)
 }

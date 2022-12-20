@@ -27,7 +27,7 @@ export default function CustomerApplicationStatus(props) {
       .post("/changeStatus", {
         applicantId: props.userData.id,
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NjU5ODc1Njl9.ZCahkiAVSko1SoywOXXV39hBrPc7KXKhj0z6xvwnHdU",
-        newStatus: "customerAccepted"
+        newStatus: 5
       })
       .then((res) => alert(res.data?.message));
 
@@ -39,7 +39,7 @@ export default function CustomerApplicationStatus(props) {
       .post("/changeStatus", {
         applicantId: props.userData.id,
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NjU5ODc1Njl9.ZCahkiAVSko1SoywOXXV39hBrPc7KXKhj0z6xvwnHdU",
-        newStatus : "customerRejected"
+        newStatus : 11
       })
       .then((res) => alert(res.data?.message));
   };
@@ -219,7 +219,7 @@ export default function CustomerApplicationStatus(props) {
           </Box>
         </Paper>
         {
-          (props.userData?.status==="depo" || props.userData?.status==="HOD")?
+          (props.userData?.status===1 || props.userData?.status===3)?
           <>
           <br />
           <Button variant="contained" onClick={() => navigate("/applicationFormPdf")}>
@@ -228,7 +228,7 @@ export default function CustomerApplicationStatus(props) {
           <br /></>:""
         }
 {
-  (props.userData?.status==="accepted" || props.userData?.status==="customerAccepted" || props.userData?.status==="customerRejected")?
+  (props.userData?.status===4 || props.userData?.status===5 || props.userData?.status===7)?
     <>
         <Paper variant="outlined" sx={styles.fieldContainer}>
           <Box sx={styles.row}>
@@ -264,7 +264,7 @@ export default function CustomerApplicationStatus(props) {
         </Button>
         <br />
 {
- (props.userData?.status==="accepted")?
+ (props.userData?.status===4)?
  <>
         <Stack direction="row" spacing={2}>
           <FormGroup>

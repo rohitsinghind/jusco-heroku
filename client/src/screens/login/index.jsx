@@ -42,6 +42,7 @@ export default function () {
       console.log(role);
       if (role == 3) navigate("/hodDashboard");
       else if (role == 2) navigate("/depoManagerDashboard");
+      else if (role == 5) navigate("/customerDashboard");
       else if (role == 6) navigate("/doorToDoorVerification");
       else if (role == 4) navigate("/AccountManagerDashboard");
       else if (role == 7) navigate("/fieldWorkerDashboard"); //ye krna hai

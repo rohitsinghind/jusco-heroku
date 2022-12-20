@@ -43,9 +43,9 @@ export default function ApplicationForm() {
   const [tncPopupOpen, setTncPopupOpen] = useState(false);
 
   const [salutation, setSalutaion] = useState("");
-  const [doctype1, setDoctype1] = useState("");
-  const [doctype2, setDoctype2] = useState("");
-  const [doctype3, setDoctype3] = useState("");
+  const [doctype1, setDoctype1] = useState(0);
+  const [doctype2, setDoctype2] = useState(0);
+  const [doctype3, setDoctype3] = useState(0);
   const [areaBa, setAreaBa] = useState("");
   const [areaPa, setAreaPa] = useState("");
 

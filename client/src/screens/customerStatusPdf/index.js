@@ -283,7 +283,7 @@ text9:{
             <View style={styles.container2}>
                 <View style={styles.container3}>
                     <Text style={styles.text3}>Depot Area</Text>
-                    <Text style={styles.text4}>{props.userData?.area}</Text>
+                    <Text style={styles.text4}>{props.userData?.pickup_area}</Text>
                 </View>
                 <View style={styles.container3}>
                     <Text style={styles.text3}></Text>
@@ -294,7 +294,7 @@ text9:{
             <View style={styles.container2}>
                 <View style={styles.container3}>
                     <Text style={styles.text3}>Frequency</Text>
-                    <Text style={styles.text4}>{props.userData?.freq}</Text>
+                    <Text style={styles.text4}>{props.userData.frequency===1?"Once":props.userData.frequency===2?"Twice":"On a Call"}</Text>
                 </View>
                 <View style={styles.container3}>
                     <Text style={styles.text3}></Text>
@@ -304,8 +304,8 @@ text9:{
 
             <View style={styles.container2}>
                 <View style={styles.container3}>
-                    <Text style={styles.text3}>Acknowledgement</Text>
-                    <Text style={styles.text4}></Text>
+                    {/* <Text style={styles.text3}>Acknowledgement</Text>
+                    <Text style={styles.text4}></Text> */}
                 </View>
                 <View style={styles.container3}>
                     <Text style={styles.text3}></Text>
@@ -316,7 +316,7 @@ text9:{
             <View style={styles.container2}>
                 <View style={styles.container3}>
                     <Text style={styles.text3}>Rate/ Pickup</Text>
-                    <Text style={styles.text4}>₹ {props.userData?.rate}</Text>
+                    <Text style={styles.text4}>₹ {props.userData?.rate_proposed}</Text>
                 </View>
                 <View style={styles.container3}>
                     <Text style={styles.text3}></Text>

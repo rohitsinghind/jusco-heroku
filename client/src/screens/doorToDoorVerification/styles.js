@@ -39,6 +39,11 @@ export const styles = {
     display: "flex",
     flexWrap: "nowrap",
   },
+  logoutBtn:{
+    position:"absolute",
+    right:"30px",
+    top:"10px"
+},
   tabItem: {
     marginRight: ".3rem",
     borderRadius: "0px",

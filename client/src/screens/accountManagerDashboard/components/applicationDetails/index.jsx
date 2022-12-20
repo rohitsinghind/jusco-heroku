@@ -45,30 +45,42 @@ export default function AccountsApplicationDetails({ applicantData }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // user_name: user_name,
+    // login_id: user_name,
+    // password: Pass,
+    // user_role: user_role,
+    // active: active || "YES",
+    // entry_by: entry_by,
+    // entry_date: dateTime,
+    // mod_by: mod_by,
+    // mod_date: dateTime,
+    // token: Token,
+    // user_name, password, user_role, active, entry_by, mod_by
     axios
       .post("/createUser", {
-        username: applicantData.application_no,
+        user_name: applicantData.application_no,
         password: applicantData.application_no,
-        role: "customer",
-        application_no: applicantData.application_no,
-        id: applicantData.id,
-        mod_by: "account_manager",
+        user_role: 5,
+        active: "YES",
+        entry_by: 4,
+        mod_by: 4,
       })
       .then((res) => {
-        changeStatusHandler("customerCreated")
+        changeStatusHandler(6)
         sendSms(`Your customer id for TSUISL Bulk Gen., has been created, your user id : ${applicantData.application_no} and password : ${applicantData.application_no}`)
       });
   };
 
-  const rejectHandler = async (e) => {
-    axios
-      .post("/changeStatus", {
-        applicantId: applicantData.id,
-        token: localStorage.getItem("adminToken"),
-        newStatus: "rejected"
-      })
-      .then((res) => rejectSendSms());
-  };
+  // const rejectHandler = async (e) => {
+  //   axios
+  //     .post("/changeStatus", {
+  //       applicantId: applicantData.id,
+  //       token: localStorage.getItem("adminToken"),
+  //       newStatus: "rejected"
+  //     })
+  //     .then((res) => rejectSendSms());
+  // };
 
   const changeStatusHandler = async (status) => {
     axios
@@ -81,15 +93,15 @@ export default function AccountsApplicationDetails({ applicantData }) {
   };
 
   const sendSms = async (message) => {
-    axios
-      .post("/sms", {
-        phone: applicantData.mobile_no,
-        message: message
-      })
-      .then((res) => {
-        alert("customer created");
-      });
-
+    // axios
+    //   .post("/sms", {
+    //     phone: applicantData.mobile_no,
+    //     message: message
+    //   })
+    //   .then((res) => {
+    //     alert("customer created");
+    //   });
+    alert(message);
   };
   const rejectSendSms = async () => {
     axios
@@ -332,23 +344,23 @@ export default function AccountsApplicationDetails({ applicantData }) {
                 <Typography sx={styles.field}>
                   Frequency of Collection per day
                 </Typography>
-                <Typography sx={styles.fieldData}>{applicantData.freq}</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.frequency===1?"Once":applicantData.frequency===2?"Twice":"On a Call"}</Typography>
               </Box>
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Customer Category</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.category}</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.customer_category===1?"B2B":"B2C"}</Typography>
               </Box>
             </div>
 
             <div>
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Depot</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.area}</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.pickup_area}</Typography>
               </Box>
 
               <Box sx={styles.detailsRow}>
                 <Typography sx={styles.field}>Rate</Typography>
-                <Typography sx={styles.fieldData}>{applicantData.rate} Rupees</Typography>
+                <Typography sx={styles.fieldData}>{applicantData.rate_proposed} Rupees</Typography>
               </Box>
             </div>
           </Box>
@@ -374,7 +386,7 @@ export default function AccountsApplicationDetails({ applicantData }) {
             sx={styles.submitBtn}
             onClick={async (e) => {
               e.preventDefault();
-              changeStatusHandler("rev_by_applicant")
+              changeStatusHandler(10)
               sendSms(`${applicantData.application_no} has been sent to you for your review by accounts`)
             }}
           >

@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -51,10 +52,19 @@ export default function DoorToDoorVerification(props) {
     fetchApplicants();
   }, [])
   
+  let navigate = useNavigate()
 
   return (
     <div>
       <Container maxWidth="xl" sx={styles.container}>
+      <Button
+      sx={styles.logoutBtn}
+        onClick={() => {
+          localStorage.setItem("adminToken", "");
+          navigate("/admin");
+        }}
+        variant="text"
+      >Logout</Button>
         <img
           style={mediaQuery.matches ? styles.imgLogoMobile : styles.imgLogo}
           src={require("../../assets/image/logo.png")}

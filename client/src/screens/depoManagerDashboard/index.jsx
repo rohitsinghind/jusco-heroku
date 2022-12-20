@@ -59,6 +59,8 @@ export default function DepoManagerDashboard(props) {
 
   return (
     <div>
+     
+      <Container maxWidth="xl" sx={styles.container}>
       <Button
       sx={styles.logoutBtn}
         onClick={() => {
@@ -67,7 +69,6 @@ export default function DepoManagerDashboard(props) {
         }}
         variant="text"
       >Logout</Button>
-      <Container maxWidth="xl" sx={styles.container}>
         <img
           style={mediaQuery.matches ? styles.imgLogoMobile : styles.imgLogo}
           src={require("../../assets/image/logo.png")}

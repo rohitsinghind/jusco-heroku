@@ -15,7 +15,7 @@ async function createUser(usrDetails) {
     Pass = hashPass;
   });
 
-  try {
+  // try {
     const a = await db.users.create({
       data: {
         user_name: user_name,
@@ -35,14 +35,14 @@ async function createUser(usrDetails) {
       message: `user Created ${user_name}`,
       token: Token,
     };
-  } catch (e) {
-    console.log(e.message)
-    return {
-      status: "Failed",
-      message: `No user Created`,
-      error: e.message,
-    };
-  }
+  // } catch (e) {
+  //   console.log(e.message)
+  //   return {
+  //     status: "Failed",
+  //     message: `No user Created`,
+  //     error: e.message,
+  //   };
+  // }
 }
 
 module.exports = { createUser };
