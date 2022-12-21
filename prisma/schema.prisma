@@ -170,11 +170,7 @@ model master_user_role {
 
 model matrix_customer_rate {
   id             Int    @id @default(autoincrement())
-<<<<<<< HEAD
-  customer_id    Int
-=======
   customer_id    String @db.VarChar(11)
->>>>>>> 148c2f19607914b8b2c2e72ef6bd3176d49bb8bc
   matrix_rate_id Int
   rate_value     Float  @db.Float
   rate_category  String @db.VarChar(16)
