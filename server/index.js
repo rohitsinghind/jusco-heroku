@@ -24,9 +24,14 @@ const { updateCustomerData } = require("./routes/updateCustomerData");
 const { createInvoice } = require("./routes/createInvoice");
 const { getInvoice } = require("./routes/getInvoice");
 const { getCustomerClassification } = require("./routes/getTableData");
-const {getCustomerSubClassification} = require("./routes/getCustomerSubClassification");
+const {
+  getCustomerSubClassification,
+} = require("./routes/getCustomerSubClassification");
 const { rate_category } = require("./routes/rateCategory");
 const { genSaltSync } = require("bcrypt");
+const { cc } = require("./routes/rate/cc");
+const { csc } = require("./routes/rate/csc");
+const { rate } = require("./routes/rate/rate");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "server/config.env" });
@@ -143,23 +148,39 @@ app.post("/getApi", async (req, res) => {
   res.send(response.data);
 });
 
-app.post("/getCustomerClassification", async (req,res) => {
+app.post("/getCustomerClassification", async (req, res) => {
   console.log("getting cus classification");
-const response = await getCustomerClassification()
-res.send(response)
-})
+  const response = await getCustomerClassification();
+  res.send(response);
+});
 
-app.post("/getCustomerSubClassification", async (req,res)=>{
-  const response = await getCustomerSubClassification(req.body)
-  res.send(response)
-})
-app.post("/rateCategory", async (req,res)=>{
-  const response = await rate_category(req.body)
-  res.send(response)
-})
+app.post("/getCustomerSubClassification", async (req, res) => {
+  const response = await getCustomerSubClassification(req.body);
+  res.send(response);
+});
+app.post("/rateCategory", async (req, res) => {
+  const response = await rate_category(req.body);
+  res.send(response);
+});
+
+app.post("/cc", async (req, res) => {
+  console.log("cc");
+  const response = await cc(req.body);
+  res.send(response);
+});
+
+app.post("/csc", async (req, res) => {
+  console.log("csc");
+  const response = await csc(req.body);
+  res.send(response);
+});
+
+app.post("/rate", async (req, res) => {
+  console.log("rate");
+  const response = await rate(req.body);
+  res.send(response);
+});
 
 app.listen(process.env.PORT || 3001, () => {
   console.log(`localhost:${process.env.PORT}`);
 });
-
-
