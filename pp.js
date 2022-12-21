@@ -105,3 +105,20 @@ mod_date
     "depot_area":8,
     "rate_proposed":500.00
     }
+
+
+    
+    // const rateTable = await db.matrix_customer_rate.create({
+    //   data: {
+    //     customer_id: id,
+    //     matrix_rate_id: matrix_rate_id,
+    //     rate_value: rate_value,
+    //     rate_category: rate_category,
+    //     remarks: "good",
+    //     effective_date: new Date().toISOString().slice(0, 19).replace("T", " "),
+    //     entry_by: 2,
+    //     entry_date: new Date().toISOString().slice(0, 19).replace("T", " "),
+    //     mod_by: 2,
+    //     mod_date: new Date().toISOString().slice(0, 19).replace("T", " "),
+    //   },
+    // });
