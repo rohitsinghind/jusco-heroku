@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { styles } from "./styles";
 import { useNavigate } from "react-router-dom";
 import Iframe from "react-iframe";
@@ -27,7 +27,7 @@ export default function ApplicationDetails({ applicantData }) {
   const mediaQuery = window.matchMedia("(max-width: 650px)");
 
   const [freq, setFreq] = useState("");
-  const [category, setCategory] = useState("")
+  // const [category, setCategory] = useState("")
   const [mobileAck, setMobileAck] = useState(false)
   const [area, setArea] = useState("")
   const [rate, setRate] = useState("")
@@ -39,6 +39,13 @@ export default function ApplicationDetails({ applicantData }) {
     area: "",
     rate: "",
   });
+
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([])
+  const [subCategory, setSubCategory] = useState("")
+  const [subCategories, setSubCategories] = useState([])
+  const [rates, setRates] = useState("")
+  const [matrixId, setMatrixId] = useState("")
 
   const handleChange = (key) => {
     key.preventDefault();
@@ -54,13 +61,65 @@ export default function ApplicationDetails({ applicantData }) {
         frequency:freq,
         signature_on_device:mobileAck?"yes":"no",
         deport_area:area,
-        rate_proposed:rate
+        rate_proposed:rate,
+         matrix_rate_id:matrixId,
+        rate_category:"urban"
       })
       .then((res) => alert(res.data?.message));
       // navigate("/depoManagerDashboard")
   };
 
   const divForScroll = useRef(null);
+
+  const fetchCategory = async (e) => {
+    axios
+      .post("/cc", {
+        token: localStorage.getItem("adminToken"),
+      })
+      .then((res) => setCategories(res.data?.data));
+      // navigate("/depoManagerDashboard")
+  };
+
+  const fetchSubCategory = async (e) => {
+    axios
+      .post("/csc", {
+        token: localStorage.getItem("adminToken"),
+        category_id:category
+      })
+      .then((res) => setSubCategories(res.data?.data));
+      // navigate("/depoManagerDashboard")
+  };
+
+  const fetchRate = async (e) => {
+    axios
+      .post("/rate", {
+        token: localStorage.getItem("adminToken"),
+        sub_category_id:subCategory
+      })
+      .then((res) => {setRates(res.data?.data)
+        setMatrixId(res.data?.data.id)
+      });
+      // navigate("/depoManagerDashboard")
+  };
+  
+  console.log(matrixId)
+
+  useEffect(() => {
+   fetchCategory()
+  }, [])
+
+  useEffect(() => {
+    if(category){
+     fetchSubCategory()
+    }
+   }, [category])
+
+   useEffect(() => {
+    if(subCategory){
+     fetchRate()
+    }
+   }, [subCategory])
+  
 
   return (
     <>
@@ -345,16 +404,14 @@ export default function ApplicationDetails({ applicantData }) {
             </FormControl>
           </div>
           <br />
-          <div>
-            <FormControl>
+          <div >
+        
             <Typography>
-                Customer Category{" "}
+                Customer Category
               </Typography>
               <Typography>
-                {applicantData.category}
+                {applicantData.customer_category===1?"B2B":"B2C"}
               </Typography>
-
-            </FormControl>
 
             <br />
 
@@ -385,28 +442,66 @@ export default function ApplicationDetails({ applicantData }) {
             onChange={handleChange}
             sx={styles.inputField}
           />
-              <FormControl sx={styles.inputField} fullWidth>
-                <InputLabel id="rate">Rate/ Pickup</InputLabel>
-                <Select
-                  labelId="rate"
-                  id="rate"
-                  value={rate}
-                  label="Rate/ Pickup"
-                  onChange={(e) => {
-                    setRate(e.target.value);
-                  }}
-                >
-                  <MenuItem value={10}>10.00</MenuItem>
-                  <MenuItem value={15}>15.00</MenuItem>
-                  <MenuItem value={20}>20.00</MenuItem>
-                </Select>
-              </FormControl>
+              
             </Box>
           </div>
         </Paper>
         <Paper variant="outlined" sx={styles.fieldContainer}>
           <Box sx={styles.row}>
-           
+          <FormControl sx={styles.inputField} fullWidth>
+                <InputLabel id="rate">Category</InputLabel>
+                <Select
+                  labelId="Category"
+                  id="Category"
+                  value={category}
+                  label="Category"
+                  onChange={(e)  => {
+                    setCategory(e.target.value);
+                  }}
+                >
+                  {
+                    categories.map((e)=>{
+                      return  <MenuItem value={e.id}>{e.category}</MenuItem>
+                    })
+                  }
+                </Select>
+              </FormControl>
+
+              <FormControl sx={styles.inputField} fullWidth>
+              <InputLabel id="subCategory">Sub Category</InputLabel>
+                <Select
+                  labelId="subCategory"
+                  id="subCategory"
+                  value={subCategory}
+                  label="subCategory"
+                  onChange={(e)  => {
+                    setSubCategory(e.target.value);
+                  }}
+                >
+                  {
+                    subCategories.map((e)=>{
+                      return  <MenuItem value={e.id}>{e.sub_category}</MenuItem>
+                    })
+                  }
+                </Select>
+              </FormControl>
+
+          <FormControl sx={styles.inputField} fullWidth>
+                <InputLabel id="rate">Area</InputLabel>
+                <Select
+                  labelId="rate"
+                  id="rate"
+                  value={rate}
+                  label="Area"
+                  onChange={(e) => {
+                    setRate(e.target.value);
+                  }}
+                >
+                  <MenuItem value={rates.rate_rural}>Rural</MenuItem>
+                  <MenuItem value={rates.rate_urban}>Urban</MenuItem>
+                  <MenuItem value={rates.rate_semi_urban}>Semi Urban</MenuItem>
+                </Select>
+              </FormControl>
           </Box>
         </Paper>
         <Button

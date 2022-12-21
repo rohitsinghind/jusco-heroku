@@ -148,20 +148,7 @@ app.post("/getApi", async (req, res) => {
   res.send(response.data);
 });
 
-app.post("/getCustomerClassification", async (req, res) => {
-  console.log("getting cus classification");
-  const response = await getCustomerClassification();
-  res.send(response);
-});
 
-app.post("/getCustomerSubClassification", async (req, res) => {
-  const response = await getCustomerSubClassification(req.body);
-  res.send(response);
-});
-app.post("/rateCategory", async (req, res) => {
-  const response = await rate_category(req.body);
-  res.send(response);
-});
 
 app.post("/cc", async (req, res) => {
   console.log("cc");

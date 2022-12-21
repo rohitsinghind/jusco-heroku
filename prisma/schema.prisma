@@ -169,17 +169,17 @@ model master_user_role {
 }
 
 model matrix_customer_rate {
-  id             Int      @id @default(autoincrement())
+  id             Int    @id @default(autoincrement())
   customer_id    Int
   matrix_rate_id Int
-  rate_value     Float    @db.Float
-  rate_category  String   @db.VarChar(16)
-  remarks        String   @db.Text
-  effective_date DateTime @db.Date
+  rate_value     Float  @db.Float
+  rate_category  String @db.VarChar(16)
+  remarks        String @db.Text
+  effective_date String @db.VarChar(15)
   entry_by       Int
-  entry_date     DateTime @db.DateTime(0)
+  entry_date     String @db.VarChar(15)
   mod_by         Int
-  mod_date       DateTime @db.DateTime(0)
+  mod_date       String @db.VarChar(15)
 }
 
 model transaction_collection {
