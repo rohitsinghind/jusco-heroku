@@ -41,9 +41,24 @@ const app = express();
 const db = new PrismaClient();
 var applicationNo = 0;
 
+///////////////////////////////////////////////////////
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "authanticImages");
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+///////////////////////////////////////////////////
+
 app.use(cors({ "access-control-allow-origin": "*" }));
 app.use(express.static(path.join(__dirname, "../client/build")));
-
+app.use(express.static(path.join(__dirname, "/authanticImages")));
 app.use(express.json({ limit: "10mb", extended: true }));
 app.use(
   express.urlencoded({ limit: "10mb", extended: true, parameterLimit: 50000 })
@@ -149,10 +164,7 @@ app.post("/getApi", async (req, res) => {
 });
 
 
-
 app.post("/cc", async (req, res) => {
-  console.log("cc");
-  const response = await cc(req.body);
   res.send(response);
 });
 
@@ -166,6 +178,10 @@ app.post("/rate", async (req, res) => {
   console.log("rate");
   const response = await rate(req.body);
   res.send(response);
+});
+
+app.post("/upload", upload.single("image"), (req, res) => {
+  res.send("Image Uploaded");
 });
 
 app.listen(process.env.PORT || 3001, () => {
