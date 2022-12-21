@@ -7,7 +7,6 @@ async function cc({ token }) {
   if (!application) {
     return { flag: false, message: "no application exists" };
   } else {
-    application.id = application.id.toString();
     return {
       flag: true,
       message: "Success",

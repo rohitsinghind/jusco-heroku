@@ -213,7 +213,6 @@ model master_customer_classification {
   entry_by   Int
   entry_date DateTime @db.DateTime(0)
   mod_by     Int
-  mod_date   DateTime @db.DateTime(0)
 }
 
 model master_customer_sub_classification {
@@ -224,7 +223,6 @@ model master_customer_sub_classification {
   entry_by     Int
   entry_date   DateTime @db.DateTime(0)
   mod_by       Int
-  mod_date     DateTime @db.DateTime(0)
 }
 
 model matrix_rate_category {
