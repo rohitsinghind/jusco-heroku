@@ -101,8 +101,7 @@ export default function ApplicationDetails({ applicantData }) {
       });
       // navigate("/depoManagerDashboard")
   };
-  
-  console.log(matrixId)
+  console.log(rate)
 
   useEffect(() => {
    fetchCategory()
@@ -502,6 +501,15 @@ export default function ApplicationDetails({ applicantData }) {
                   <MenuItem value={rates.rate_semi_urban}>Semi Urban</MenuItem>
                 </Select>
               </FormControl>
+
+              <TextField
+            id="rate"
+            type="text"
+            label="Pickup/Rate"
+            value={rate}
+            onChange={(e)=>{setRate(e.target.value)}}
+            sx={styles.inputField}
+          />
           </Box>
         </Paper>
         <Button
