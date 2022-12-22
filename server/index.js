@@ -49,7 +49,9 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     console.log(file);
+    console.log(req.body);
     cb(null, Date.now() + path.extname(file.originalname));
+    req.body.fileName = Date.now() + path.extname(file.originalname);
   },
 });
 
@@ -182,7 +184,7 @@ app.post("/rate", async (req, res) => {
 });
 
 app.post("/upload", upload.single("image"), (req, res) => {
-  res.send("Image Uploaded");
+  res.send(`http://localhost:3001/authanticImages/${req.body.fileName}`);
 });
 
 app.listen(process.env.PORT || 3001, () => {
