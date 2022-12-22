@@ -132,7 +132,7 @@ async function createApplication(usrData, applicationNo) {
       frequency: 000,
       customer_category: customer_category,
       signature_on_device: "",
-      signature_file_name: signature_acknowlegement,
+      signature_file_name: "undefined",
       depot_area: "undefined",
       rate_proposed: 0,
       qr_code: "",
