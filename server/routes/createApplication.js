@@ -9,22 +9,6 @@ const db = new PrismaClient();
 async function createApplication(usrData, applicationNo) {
   const dateTime = new Date();
 
-  // let appno = await db.track.findUnique({
-  //   where: {
-  //     id: 1,
-  //   },
-  // });
-  // console.log(appno);
-  // let addedval = appno.lastApplicationNo + 1;
-  // const applicationNo = db.track.update({
-  //   where: {
-  //     id: 1,
-  //   },
-  //   data: {
-  //     ApplicationNo: addedval,
-  //   },
-  // });
-  // console.log(appno.lastApplicationNo, applicationNo);
   const {
     salutation,
     Fname,
@@ -69,20 +53,32 @@ async function createApplication(usrData, applicationNo) {
     bp_no,
   } = usrData;
 
-
   console.log(docFile1);
 
-async function imgUpload(base64,name){
-  const base64Str = base64
-  const rasta = path.join(__dirname, `../authanticImages/${Fname}-${name.doctype1}-.png`);
-  const sign_info = await base64ToImage(base64Str, rasta);
-  console.log(sign_info);
-  return sign_info
-}
+  async function imgUpload(base64, { file }) {
+    const base64Str = base64;
+    const rasta = path.join(
+      __dirname,
+      `../authanticImages/${Fname}-${file}-.png`
+    );
+    const sign_info = await base64ToImage(base64Str, rasta);
+    console.log(sign_info);
+    return sign_info;
+  }
 
-const upload = await imgUpload(docFile1,{doctype1})
+  const upload1 = await imgUpload(docFile1, { file: doctype1 });
 
-
+  if (docFile2) {
+    const upload2 = await imgUpload(docFile2, { file: doctype2 });
+  }
+  if (docFile3) {
+    const upload3 = await imgUpload(docFile3, { file: doctype3 });
+  }
+  if (signature_acknowlegement) {
+    const signature = await imgUpload(signature_acknowlegement, {
+      file: "signature",
+    });
+  }
 
   const daate = new Date().toISOString().slice(0, 19).replace("T", " ");
   const appliNo = `ph${applicationNo}${Math.floor(

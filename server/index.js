@@ -165,8 +165,8 @@ app.post("/getApi", async (req, res) => {
   res.send(response.data);
 });
 
-
 app.post("/cc", async (req, res) => {
+  console.log("cc");
   const response = await cc(req.body);
   res.send(response);
 });
