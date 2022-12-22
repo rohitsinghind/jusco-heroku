@@ -53,13 +53,14 @@ async function createApplication(usrData, applicationNo) {
     bp_no,
   } = usrData;
 
-  console.log(docFile1);
+
 
   async function imgUpload(base64, { file }) {
+    console.log(file);
     const base64Str = base64;
     const rasta = path.join(
       __dirname,
-      `../authanticImages/${Fname}-${file}-.png`
+      `/authanticImages/${Fname}-${file}-.png`
     );
     const sign_info = await base64ToImage(base64Str, rasta);
     console.log(sign_info);
