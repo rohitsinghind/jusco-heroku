@@ -152,8 +152,6 @@ export default function ApplicationForm() {
   // };
 
 
-
-
   const fetchAreaBa = async (e) => {
     axios.post("/getApi",{
       url:`https://tsapplications.in/api/v1/data/areas/${zoneIdBa}`
@@ -161,7 +159,7 @@ export default function ApplicationForm() {
   }
   const fetchAreaPa = async (e) => {
     axios.post("/getApi",{
-      url:"https://tsapplications.in/api/v1/data/areas/Z0002"
+      url:`https://tsapplications.in/api/v1/data/areas/${zoneIdPa}`
     }).then((res)=>{setAreasPa(res.data)})
   }
   const fetchZones = async (e) => {
@@ -177,7 +175,7 @@ export default function ApplicationForm() {
   }
   const fetchLocalityPa = async (e) => {
     axios.post("/getApi",{
-      url:"https://tsapplications.in/api/v1/data/areas/Z0002"
+      url:`https://tsapplications.in/api/v1/data/locations/${areaIdPa}`
     }).then((res)=>{setLocalitiesPa(res.data)})
   }
 
@@ -204,6 +202,26 @@ export default function ApplicationForm() {
       fetchLocalityPa();
     }
   }, [areaIdPa,areaPa])
+  
+  useEffect(() => {
+    setZoneIdBa(zones?.filter((e)=>{if(e?.name===zoneBa){return e}})[0]?.zone_id);
+  }, [zoneBa])
+
+  useEffect(() => {
+    setAreaIdBa(areasBa.filter((e)=>{if(e.name===areaBa){return e}})[0]?.area_id);
+  }, [areaBa])
+
+
+  useEffect(() => {
+    setZoneIdPa(zones.filter((e)=>{if(e.name===zonePa){return e}})[0]?.zone_id);
+  }, [zonePa])
+
+  useEffect(() => {
+    setAreaIdPa(areasPa.filter((e)=>{if(e.name===areaPa){return e}})[0]?.area_id);
+  }, [areaPa])
+  
+  
+  
   
 
   const submitHandler = async (e) => {
@@ -684,6 +702,8 @@ export default function ApplicationForm() {
               value={creds.nameBa || ""}
               onChange={handleChange}
               sx={styles.inputField}
+              inputProps={{ maxLength: 20 }}
+              helperText="Max length is 20 character"
             />
             <TextField
             required
@@ -695,6 +715,8 @@ export default function ApplicationForm() {
               value={creds.streetHouseNoBa || ""}
               onChange={handleChange}
               sx={styles.inputField}
+              inputProps={{ maxLength: 35 }}
+              helperText="Max length is 35 character"
             />
           </Box>
 
@@ -710,7 +732,7 @@ export default function ApplicationForm() {
                 label="Zone"
                 onChange={(e) => {
                   setZoneBa(e.target.value);
-                  setZoneIdBa(zones.filter((e)=>{if(e.name===zoneBa){return e}})[0].zone_id);
+                  // setZoneIdBa(zones?.filter((e)=>{if(e?.name===zoneBa){return e}})[0]?.zone_id);
                 }}>
                 {
                   zones.map((e)=>{
@@ -860,7 +882,7 @@ export default function ApplicationForm() {
                 label="Zone"
                 onChange={(e) => {
                   setZonePa(e.target.value);
-                  setZoneIdPa(zones.filter((e)=>{if(e.name===zonePa){return e}})[0].zone_id);
+                  // setZoneIdPa(zones.filter((e)=>{if(e.name===zonePa){return e}})[0].zone_id);
                 }}>
                 {
                   zones.map((e)=>{
@@ -882,7 +904,7 @@ export default function ApplicationForm() {
                 label="Area"
                 onChange={(e) => {
                   setAreaPa(e.target.value);
-                  setAreaIdPa(areasPa.filter((e)=>{if(e.name===areaPa){return e}})[0]?.area_id);
+                  // setAreaIdPa(areasPa.filter((e)=>{if(e.name===areaPa){return e}})[0]?.area_id);
                 }}>
                 {
                   areasPa.map((ar)=>{
@@ -905,7 +927,7 @@ export default function ApplicationForm() {
                 label="Area"
                 onChange={(e) => {
                   setLocalityPa(e.target.value);
-                  
+                
                 }}>
                 {
                   LocalitiesPa.map((e)=>{
