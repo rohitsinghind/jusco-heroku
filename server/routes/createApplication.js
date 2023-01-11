@@ -53,33 +53,28 @@ async function createApplication(usrData, applicationNo) {
     bp_no,
   } = usrData;
 
+  // async function imgUpload(base64, { file }) {
+  // console.log(file);
+  // const base64Str = docFile1;
+  // const rasta = path.join(__dirname, "images/i.png");
+  // const sign_info = await base64ToImage(base64Str, rasta);
+  // console.log(sign_info);
+  // return sign_info;
+  // }
+  // ${Fname}-${file}-.png
+  // const upload1 = await imgUpload(docFile1, { file: doctype1 });
 
-
-  async function imgUpload(base64, { file }) {
-    console.log(file);
-    const base64Str = base64;
-    const rasta = path.join(
-      __dirname,
-      `/authanticImages/${Fname}-${file}-.png`
-    );
-    const sign_info = await base64ToImage(base64Str, rasta);
-    console.log(sign_info);
-    return sign_info;
-  }
-
-  const upload1 = await imgUpload(docFile1, { file: doctype1 });
-
-  if (docFile2) {
-    const upload2 = await imgUpload(docFile2, { file: doctype2 });
-  }
-  if (docFile3) {
-    const upload3 = await imgUpload(docFile3, { file: doctype3 });
-  }
-  if (signature_acknowlegement) {
-    const signature = await imgUpload(signature_acknowlegement, {
-      file: "signature",
-    });
-  }
+  // if (docFile2) {
+  //   const upload2 = await imgUpload(docFile2, { file: doctype2 });
+  // }
+  // if (docFile3) {
+  //   const upload3 = await imgUpload(docFile3, { file: doctype3 });
+  // }
+  // if (signature_acknowlegement) {
+  //   const signature = await imgUpload(signature_acknowlegement, {
+  //     file: "signature",
+  //   });
+  // }
 
   const daate = new Date().toISOString().slice(0, 19).replace("T", " ");
   const appliNo = `ph${applicationNo}${Math.floor(
@@ -105,13 +100,13 @@ async function createApplication(usrData, applicationNo) {
       medium_of_communication: medium_lang,
       document_type_1: doctype1,
       document_no_1: doc1No,
-      document_file_name_1: "url",
+      document_file_name_1: docFile1,
       document_type_2: doctype2,
       document_no_2: doc2No,
-      document_file_name_2: "docUrl2",
+      document_file_name_2: docFile2,
       document_type_3: doctype3,
       document_no_3: doc3No,
-      document_file_name_3: "docUrl3",
+      document_file_name_3: docFile3,
       billing_estb_name: nameBa,
       billing_street: streetHouseNoBa,
       billing_zone: zoneBa,
@@ -137,7 +132,7 @@ async function createApplication(usrData, applicationNo) {
       frequency: 000,
       customer_category: customer_category,
       signature_on_device: "",
-      signature_file_name: "",
+      signature_file_name: "undefined",
       depot_area: "undefined",
       rate_proposed: 0,
       qr_code: "",
